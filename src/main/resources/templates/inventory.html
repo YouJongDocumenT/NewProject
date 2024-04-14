@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>재고 관리 대시보드</title>
+	<style>
+		/* 재고칸 스타일 */
+		#inventory {
+			width: 100%; /* DB에서 불러온 너비에 맞추어 조정 */
+			height: 200px; /* DB에서 불러온 높이에 맞추어 조정 */
+			border: 1px solid #000;
+			margin-bottom: 10px;
+		}
+
+		/* 판매할 물품 입력 칸 스타일 */
+		.item-input {
+			margin: 5px;
+			padding: 5px;
+		}
+
+		/* 버튼 스타일 */
+		.action-button {
+			display: inline-block;
+			padding: 10px;
+			margin: 5px;
+			border: 1px solid #000;
+			background-color: #e1e1e1;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<!-- 재고칸 -->
+<div id="inventory">재고</div>
+
+<!-- 판매할 물품 입력 칸 -->
+<input type="text" id="item1" class="item-input" placeholder="1번 물품 크기">
+<input type="text" id="item2" class="item-input" placeholder="2번 물품 크기">
+
+<!-- 동작 버튼 -->
+<div id="button3" class="action-button">3. 데이터 전송</div>
+<div id="button4" class="action-button" onclick="enableDiscardMode()">4. 폐기 모드</div>
+<div id="button5" class="action-button" onclick="sendCoordinates()">5. 좌표 전송</div>
+
+<script>
+
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.getElementById('button3').addEventListener('click', postData);
+	});
+
+	function postData() {
+		// 여기에 입력 데이터를 설정하세요. 예시로 item1과 item2를 사용합니다.
+		const item1Size = document.getElementById('item1').value;
+		const item2Size = document.getElementById('item2').value;
+
+		// POST 요청을 위한 데이터
+		const data = { item1: item1Size, item2: item2Size };
+
+		fetch('/cutting', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			// JSON 형태로 데이터를 서버에 전송
+			body: JSON.stringify(data),
+		})
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success:', data);
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+	}
+
+	// 데이터 전송 함수
+	function sendData() {
+		var item1Size = document.getElementById('item1').value;
+		var item2Size = document.getElementById('item2').value;
+
+		// 여기에 POST 요청을 보내는 코드를 작성하세요.
+		console.log('데이터 전송', item1Size, item2Size);
+	}
+
+	// 폐기 모드 활성화 함수
+	function enableDiscardMode() {
+		// 폐기 모드 활성화 코드를 작성하세요.
+		console.log('폐기 모드 활성화');
+	}
+
+	// 좌표 전송 함수
+	function sendCoordinates() {
+		// 드래그로 선택한 영역의 좌표를 전송하는 코드를 작성하세요.
+		console.log('좌표 전송');
+	}
+
+	// 재고칸 드래그 이벤트 처리를 위한 코드 (추가 구현 필요)
+	// 예시로 console.log에 출력하는 코드를 넣었습니다.
+	document.getElementById('inventory').addEventListener('mousedown', function(event) {
+		console.log('드래그 시작', event.clientX, event.clientY);
+	});
+
+	document.getElementById('inventory').addEventListener('mouseup', function(event) {
+		console.log('드래그 끝', event.clientX, event.clientY);
+	});
+
+	// 필요한 추가 스크립트를 여기에 작성하세요.
+
+</script>
+</body>
+</html>

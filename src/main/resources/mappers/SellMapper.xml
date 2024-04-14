@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ras.bandostockproject.mapper.SellMapper">
+
+    <insert id="insertSellComp" parameterType="com.ras.bandostockproject.dto.SellListDTO">
+        INSERT INTO SELL_COMP (sellCompany, address, compNumber, email)
+        VALUES (#{sellCompany}, #{address}, #{compNumber}, #{email})
+    </insert>
+
+    <select id="getAllSellComps" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT sellId, sellCompany
+        FROM SELL_COMP;
+    </select>
+
+    <select id="getAllMachines" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT machineId, machineName
+        FROM MACHINE_TABLE;
+    </select>
+
+    <insert id="insertAllMachine" parameterType="com.ras.bandostockproject.dto.SellListDTO">
+        INSERT INTO MACHINE_TABLE (sellId, machineName, memo)
+        VALUES (#{sellId}, #{machineName}, #{memo})
+    </insert>
+
+    <insert id="insertPerson" parameterType="com.ras.bandostockproject.dto.SellListDTO">
+        INSERT INTO PERSON_TABLE (sellId, machineId, person, personNumber, comMemo)
+        VALUES (#{sellId}, #{machineId}, #{person}, #{personNumber}, #{comMemo})
+    </insert>
+
+    <insert id="insertAllSell" parameterType="com.ras.bandostockproject.dto.SellListDTO">
+        INSERT INTO SELL_TABLE (preReceiving, sellId, machineId, personId, product, purchasePDTNUM, standard, sellQuantity, sellEaprice, sellPrice, tax)
+        VALUES (#{preReceiving}, #{sellId}, #{machineId}, #{personId}, #{product}, #{purchasePDTNUM}, #{standard}, #{sellQuantity}, #{sellEaprice}, #{sellPrice}, #{tax})
+    </insert>
+
+    <select id="getAllSellList" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *
+        FROM SELL_TABLE AS st
+                 INNER JOIN PERSON_TABLE AS pt ON st.personId = pt.personId
+                 INNER JOIN MACHINE_TABLE AS mt ON pt.machineId = mt.machineId
+                 INNER JOIN SELL_COMP AS sc ON mt.sellId = sc.sellId;
+    </select>
+
+    <select id="getAllsellCompList" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *
+        FROM SELL_COMP;
+    </select>
+
+    <select id="getAllsellPersonById" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *
+        FROM PERSON_TABLE
+        WHERE sellId = #{SID};
+    </select>
+
+    <select id="getAllPersonByIdList" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *,
+               (SELECT COUNT(*)
+                FROM SELL_TABLE
+                WHERE SELL_TABLE.personId = PERSON_TABLE.personId
+                  AND SELL_TABLE.preReceiving = 1) AS preReceivingCount
+        FROM PERSON_TABLE
+                 LEFT JOIN MACHINE_TABLE ON PERSON_TABLE.machineId = MACHINE_TABLE.machineId
+                 LEFT JOIN SELL_COMP ON MACHINE_TABLE.sellId = SELL_COMP.sellId
+        WHERE PERSON_TABLE.personId = #{SID};
+    </select>
+
+    <select id="getAllsellListById" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *
+        FROM SELL_TABLE AS st
+                 INNER JOIN PERSON_TABLE AS pt ON st.personId = pt.personId
+                 INNER JOIN MACHINE_TABLE AS mt ON pt.machineId = mt.machineId
+                 INNER JOIN SELL_COMP AS sc ON mt.sellId = sc.sellId
+        WHERE ST.sellId = #{SID}
+    </select>
+
+    <select id="getAllsellReceivingList" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT *
+        FROM SELL_TABLE AS st
+                 INNER JOIN PERSON_TABLE AS pt ON st.personId = pt.personId
+                 INNER JOIN MACHINE_TABLE AS mt ON pt.machineId = mt.machineId
+                 INNER JOIN SELL_COMP AS sc ON mt.sellId = sc.sellId
+        WHERE ST.preReceiving = 1
+    </select>
+
+    <select id="getAllsellCompById" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT ST.person, ST.personNumber, SC.*
+        FROM SELL_TABLE ST
+                 JOIN SELL_COMP SC ON ST.sellId = SC.sellId
+        WHERE ST.sellId = #{SID};
+    </select>
+    <select id="getAllMachineBysellId" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT machineName, machineId
+        FROM MACHINE_TABLE
+        WHERE sellId = #{SID};
+    </select>
+
+    <select id="getPersonByMachineId" resultType="com.ras.bandostockproject.dto.SellListDTO">
+        SELECT personID, person
+        FROM PERSON_TABLE
+        WHERE machineId = #{SID};
+    </select>
+
+    <select id="getEapriceByPDT" resultType="com.ras.bandostockproject.dto.StockListDTO">
+        SELECT purchaseEaprice
+        FROM STOCK_TABLE
+        WHERE purchasePDTNUM = #{SID};
+    </select>
+
+</mapper>

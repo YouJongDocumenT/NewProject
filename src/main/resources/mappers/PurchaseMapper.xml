@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ras.bandostockproject.mapper.PurchaseMapper">
+
+    <insert id="insertPurchaseComp" parameterType="com.ras.bandostockproject.dto.PcompDTO">
+        INSERT INTO PURCHASE_COMP (purchaseCompany, address, compNumber, email)
+        VALUES (#{purchaseCompany}, #{address}, #{compNumber}, #{email})
+    </insert>
+
+    <select id="getAllPurchaseComps" resultType="com.ras.bandostockproject.dto.PcompDTO">
+        SELECT purchaseId, purchaseCompany
+        FROM PURCHASE_COMP;
+    </select>
+
+    <insert id="insertPurchase" parameterType="com.ras.bandostockproject.dto.PurchaseDTO">
+        INSERT INTO PURCHASE_TABLE (credit, purchaseId, product, standard, purchaseEaprice, purchaseQuantity,purchasePrice)
+        VALUES (#{credit}, #{purchaseId}, #{product}, #{standard}, #{purchaseEaprice}, #{purchaseQuantity}, #{purchasePrice})
+    </insert>
+
+    <select id="getAllPurchaseList" resultType="com.ras.bandostockproject.dto.PurchaseListDTO">
+        SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
+               PT.credit, PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
+        FROM PURCHASE_COMP PC
+                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
+        ORDER BY PC.purchaseId;
+    </select>
+
+    <select id="getAllPurchaseRecentData" resultType="com.ras.bandostockproject.dto.StockListDTO">
+        SELECT PC.purchaseId, PC.purchaseCompany,
+               PT.credit, PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
+        FROM PURCHASE_COMP PC
+                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
+        ORDER BY PT.purchaseDate DESC
+            LIMIT 1;
+    </select>
+
+    <select id="getAllpurchaseCompList" resultType="com.ras.bandostockproject.dto.PcompDTO">
+        SELECT *
+        FROM PURCHASE_COMP;
+    </select>
+
+    <select id="getAllpurchaseListById" resultType="com.ras.bandostockproject.dto.PurchaseListDTO">
+        SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
+               PT.credit, PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
+        FROM PURCHASE_COMP PC
+                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
+        WHERE PC.purchaseId = #{PID}
+        ORDER BY PC.purchaseId;
+    </select>
+
+    <select id="getAllpurchaseCreditList" resultType="com.ras.bandostockproject.dto.PurchaseListDTO">
+        SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
+               PT.credit, PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
+        FROM PURCHASE_COMP PC
+                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
+        WHERE PT.credit = 1
+        ORDER BY PC.purchaseId;
+    </select>
+
+    <select id="getAllpurchaseCompById" resultType="com.ras.bandostockproject.dto.PcompDTO">
+        SELECT PC.*, COUNT(PT.credit) AS credit_count
+        FROM PURCHASE_COMP PC
+                 LEFT JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId AND PT.credit = 1
+        WHERE PC.purchaseId = #{PID}
+        GROUP BY PC.purchaseId;
+    </select>
+</mapper>

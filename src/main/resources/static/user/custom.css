@@ -1,0 +1,101 @@
+
+/* margin은 요소의 외부 여백을, padding은 요소의 내부 여백을 지정합니다. */
+
+
+.viewBuy {
+    width: 100%; /* div의 가로 길이 */
+    height: 500px; /* div의 세로 길이 */
+    margin-bottom: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+}
+
+.addBuy {
+    background-color: #202940; /* 배경색 */
+    width: 100%; /* div의 가로 길이 */
+    height: 210px; /* div의 세로 길이 */
+    border-radius: 5px; /* 테두리를 둥글게 만듦 */
+    display: flex; /* 요소들을 가로로 배치하기 위해 플렉스박스로 설정 */
+}
+
+.viewBuy-top {
+    width: 100%; /* div의 가로 길이 */
+    height: 90px; /* div의 세로 길이 */
+    background-color: #202940; /* 배경색 */
+    border-radius: 5px; /* 테두리를 둥글게 만듦 */
+    margin-bottom: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+}
+.viewBuy-bottom {
+    width: 100%; /* div의 가로 길이 */
+    height: 370px; /* div의 세로 길이 */
+}
+
+.viewBuy-container {
+    border-radius: 5px; /* 테두리를 둥글게 만듦 */
+    overflow-x: auto;
+    max-height: 370px; /* 테이블 전체 높이 */              /* 위치 수정 */
+    position: relative;
+}
+
+
+.viewBuy-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.viewBuy-table thead th,
+.viewBuy-table tfoot th {
+    text-align: center;
+}
+.viewBuy-table tbody td{
+    border: 1px solid #7d7b7b;
+    /*padding: 8px;*/
+    text-align: center;
+}
+
+.viewBuy-table thead th {
+    background-color: #202940;
+    position: sticky;
+    top: 0;
+}
+
+.viewBuy-table tfoot th {
+    background-color: #202940;
+    position: sticky;
+    bottom: 0;
+}
+
+.label-1 {
+    border-bottom: 3px solid black;
+    width: 100%;
+    margin-bottom: 5px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+}
+
+.pcom {
+    margin-top: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+    margin-left: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+    border-collapse: collapse; /* 테두리 겹치기 방지 */
+    width: 20%; /* div의 가로 길이 */
+    height: 100%;
+}
+.add {
+    margin-top: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+    margin-left: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+    border-collapse: collapse; /* 테두리 겹치기 방지 */
+    width: 40%; /* div의 가로 길이 */
+    height: 100%;
+}
+
+.pcom-table thead th,
+.pcom-table tbody td {
+    border: 1px solid #7d7b7b; /* 테두리 스타일 및 색상 설정 */
+    padding: 3px; /* 셀 내부 여백 설정 */
+    text-align: center;
+}
+
+.add-table thead th,
+.add-table tbody td {
+    border: 1px solid #7d7b7b; /* 테두리 스타일 및 색상 설정 */
+    padding: 3px; /* 셀 내부 여백 설정 */
+    text-align: center;
+}
+
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ras.bandostockproject.mapper.StockMapper">
+
+    <insert id="insertStock" parameterType="com.ras.bandostockproject.dto.StockListDTO">
+        INSERT INTO STOCK_TABLE (purchaseId, purchaseCompany, product, standard, purchaseEaprice, purchaseQuantity,purchasePrice,purchasePDTNUM, purchaseDate)
+        VALUES (#{purchaseId}, #{purchaseCompany}, #{product}, #{standard}, #{purchaseEaprice}, #{purchaseQuantity}, #{purchasePrice}, #{purchasePDTNUM}, #{purchaseDate})
+    </insert>
+    <select id="getAllStockProduct" resultType="com.ras.bandostockproject.dto.StockListDTO">
+        SELECT product, purchasePDTNUM, purchaseQuantity, standard, purchaseEaprice
+        FROM STOCK_TABLE;
+    </select>
+
+    <!-- 첫 번째 쿼리: 재고 수량 업데이트 -->
+    <update id="updateStockQuantityRefresh" parameterType="com.ras.bandostockproject.dto.StockListDTO">
+        UPDATE STOCK_TABLE
+        SET purchaseQuantity = purchaseQuantity - #{SellQuantity}
+        WHERE purchasePDTNUM = #{PurchasePDTNUM};
+    </update>
+
+    <!-- 두 번째 쿼리: purchaseQuantity가 0인 항목 삭제 -->
+    <delete id="deleteZeroQuantityStock" parameterType="com.ras.bandostockproject.dto.StockListDTO">
+        DELETE FROM STOCK_TABLE
+        WHERE purchaseQuantity = 0;
+    </delete>
+
+    <!-- 총 재고금액, 총 구매금액 업데이트 -->
+    <update id="updateStockPriceAllPrice" parameterType="com.ras.bandostockproject.dto.StockPriceDTO">
+        UPDATE PRICE_TABLE
+        SET stockPrice = stockPrice + #{purchasePrice}, allPruchaseCNT = allPruchaseCNT + #{purchasePrice}
+    </update>
+
+    <!-- 총 판매금액 업데이트 -->
+    <update id="updateAllSellCNT" parameterType="com.ras.bandostockproject.dto.StockPriceDTO">
+        UPDATE PRICE_TABLE
+        SET allSellCNT = allSellCNT + #{sellPrice}
+    </update>
+
+    <!-- 재고테이블 개당구매가격 조회 -->
+    <select id="getPurchaseEapriceByStock" resultType="int">
+        SELECT purchaseEaprice
+        FROM STOCK_TABLE
+        WHERE purchasePDTNUM = #{purchasePDTNUM}
+    </select>
+
+    <!-- 순수익 업데이트 -->
+    <update id="updateRevenue" parameterType="com.ras.bandostockproject.dto.StockPriceDTO">
+        UPDATE PRICE_TABLE
+        SET revenue = revenue + #{REVENUE}
+    </update>
+
+    <!-- 누적세금 업데이트 -->
+    <update id="updateTax" parameterType="com.ras.bandostockproject.dto.StockPriceDTO">
+        UPDATE PRICE_TABLE
+        SET tax = tax + #{tax}
+    </update>
+
+    <select id="stockList" resultType="com.ras.bandostockproject.dto.StockListDTO">
+        SELECT *
+        FROM STOCK_TABLE;
+    </select>
+    <select id="stockPrice" resultType="com.ras.bandostockproject.dto.StockPriceDTO">
+        SELECT *
+        FROM PRICE_TABLE;
+    </select>
+
+    <!-- 누적세금 업데이트 -->
+    <update id="updateAllStockPrice" parameterType="com.ras.bandostockproject.dto.StockPriceDTO">
+        UPDATE PRICE_TABLE
+        SET stockPrice = stockPrice - #{ResultPrice}
+    </update>
+
+    <!-- 선입고금액 업데이트 -->
+    <update id="updateReceivingPriceCNT" parameterType="com.ras.bandostockproject.dto.StatePriceDTO">
+        UPDATE STATEPRICE_TABLE
+        SET preReceivingPrice = #{preReceivingPrice}
+    </update>
+
+    <!-- 외상금액 업데이트 -->
+    <update id="updateStateCreditCNT" parameterType="com.ras.bandostockproject.dto.StatePriceDTO">
+        UPDATE STATEPRICE_TABLE
+        SET creditPrice = #{creditPrice}
+    </update>
+
+</mapper>

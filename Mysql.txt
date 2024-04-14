@@ -30,8 +30,7 @@ CREATE TABLE SELL_COMP (
     sellCompany VARCHAR(255),
     address VARCHAR(255),
     compNumber VARCHAR(255),
-    email VARCHAR(255),
-    comMemo VARCHAR(255)
+    email VARCHAR(255)
 );
 
 CREATE TABLE MACHINE_TABLE (
@@ -41,13 +40,21 @@ CREATE TABLE MACHINE_TABLE (
     memo VARCHAR(255)
 );
 
+CREATE TABLE PERSON_TABLE (
+    personId INT AUTO_INCREMENT PRIMARY KEY,
+    sellId INT,
+    machineId INT,
+    person VARCHAR(255),
+	personNumber VARCHAR(255),
+    comMemo VARCHAR(255)
+);
+
 CREATE TABLE SELL_TABLE (
     sellPDTNUM INT AUTO_INCREMENT PRIMARY KEY,
     preReceiving INT,
     sellId INT,
     machineId INT,
-    person VARCHAR(255),
-	personNumber VARCHAR(255),
+    personId INT,
 	product VARCHAR(255),
     purchasePDTNUM INT,
 	standard VARCHAR(255),
@@ -69,6 +76,7 @@ CREATE TABLE STOCK_TABLE (
     purchasePDTNUM INT,
     purchaseDate TIMESTAMP
 );
+
 CREATE TABLE PRICE_TABLE (
 	stockPrice INT,
     allPruchaseCNT INT,
@@ -89,21 +97,12 @@ INSERT INTO STATEPRICE_TABLE (creditPrice, preReceivingPrice)
 VALUES
     (0, 0);
 
-INSERT INTO PURCHASE_COMP (PURCHASE_COMPANY, ADDRESS, COMP_NUMBER, EMAIL)
-VALUES
-    ('Company A', '123 Main Street', '123456789', 'companyA@example.com'),
-    ('Company B', '456 Elm Street', '987654321', 'companyB@example.com'),
-    ('Company C', '789 Oak Street', '456123789', 'companyC@example.com');
-
-    
-INSERT INTO PURCHASE_TABLE (purchaseId, product, standard, purchaseEaprice, purchaseQuantity,purchasePrice)
-VALUES
-    (1, '123 Main Street', '123456789', 1, 1, 1);
     
 select * from PURCHASE_COMP;
 select * from PURCHASE_TABLE;
 select * from SELL_COMP;
 select * from MACHINE_TABLE;
+select * from PERSON_TABLE;
 select * from SELL_TABLE;
 select * from STOCK_TABLE;
 select * from PRICE_TABLE;
@@ -113,6 +112,7 @@ drop table PURCHASE_COMP;
 drop table PURCHASE_TABLE;
 drop table SELL_COMP;
 drop table MACHINE_TABLE;
+drop table PERSON_TABLE;
 drop table SELL_TABLE;
 drop table STOCK_TABLE;
 drop table PRICE_TABLE;
@@ -123,84 +123,3 @@ drop table STATEPRICE_TABLE;
 
 
 
-
-SELECT PURCHASE_ID, PURCHASE_COMPANY
-        FROM PURCHASE_COMP;
-SELECT *
-        FROM STOCK_TABLE;
-
-UPDATE PRICE_TABLE
-        SET stockPrice = stockPrice + 1, allPruchaseCNT = allPruchaseCNT + 1;
-
-SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
-       PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
-FROM PURCHASE_COMP PC
-INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
-ORDER BY PC.purchaseId;
-
-SELECT sellId, sellCompany
-        FROM SELL_COMP;
-
-
-SELECT PC.purchaseId, PC.purchaseCompany,
-               PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
-        FROM PURCHASE_COMP PC
-                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
-        ORDER BY PT.purchaseDate DESC
-            LIMIT 1;
-
-SELECT product, purchasePDTNUM, purchaseQuantity
-        FROM STOCK_TABLE;
-
-
-SELECT SELL_TABLE.sellPDTNUM, SELL_TABLE.sellId, SELL_TABLE.machineId, SELL_TABLE.person, SELL_TABLE.personNumber, SELL_TABLE.product, SELL_TABLE.purchasePDTNUM, SELL_TABLE.standard, SELL_TABLE.sellQuantity, SELL_TABLE.sellEaprice, SELL_TABLE.sellPrice, SELL_TABLE.tax, SELL_TABLE.sellDate, SELL_COMP.sellCompany, SELL_COMP.address, SELL_COMP.compNumber, SELL_COMP.email, MACHINE_TABLE.machineName, MACHINE_TABLE.memo
-FROM SELL_TABLE
-JOIN SELL_COMP ON SELL_TABLE.sellId = SELL_COMP.sellId
-JOIN MACHINE_TABLE ON SELL_TABLE.machineId = MACHINE_TABLE.machineId
-ORDER BY SELL_TABLE.sellId, SELL_TABLE.machineId;
-
-UPDATE STOCK_TABLE
-SET purchaseQuantity = purchaseQuantity - 1
-WHERE purchasePDTNUM = 1;
-
-
-DELETE FROM STOCK_TABLE
-    WHERE purchaseQuantity = 0;
-
-SELECT purchaseEaprice
-FROM STOCK_TABLE
-WHERE purchasePDTNUM = 2;
-
-SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
-               PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
-        FROM PURCHASE_COMP PC
-                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
-        WHERE PT.purchaseDate BETWEEN 2024-04-27 AND 2024-04-29
-        ORDER BY PC.purchaseId;
-
-
-
-
-SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
-       PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
-FROM PURCHASE_COMP PC
-INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
-WHERE PC.purchaseId = 1
-ORDER BY PC.purchaseId;
-
-
-
-SELECT SELL_TABLE.sellPDTNUM, SELL_TABLE.sellId, SELL_TABLE.machineId, SELL_TABLE.person, SELL_TABLE.personNumber, SELL_TABLE.product, SELL_TABLE.purchasePDTNUM, SELL_TABLE.standard, SELL_TABLE.sellQuantity, SELL_TABLE.sellEaprice, SELL_TABLE.sellPrice, SELL_TABLE.tax, SELL_TABLE.sellDate, SELL_COMP.sellCompany, SELL_COMP.address, SELL_COMP.compNumber, SELL_COMP.email, MACHINE_TABLE.machineName, MACHINE_TABLE.memo
-        FROM SELL_TABLE
-                 JOIN SELL_COMP ON SELL_TABLE.sellId = SELL_COMP.sellId
-                 JOIN MACHINE_TABLE ON SELL_TABLE.machineId = MACHINE_TABLE.machineId
-		WHERE SELL_TABLE.sellId = 1
-        ORDER BY SELL_TABLE.sellId, SELL_TABLE.machineId;
-
-
-SELECT PC.purchaseId, PC.purchaseCompany, PC.address, PC.compNumber, PC.email,
-               PT.credit, PT.product, PT.standard, PT.purchaseEaprice, PT.purchaseQuantity, PT.purchasePrice, PT.purchasePDTNUM, PT.purchaseDate
-        FROM PURCHASE_COMP PC
-                 INNER JOIN PURCHASE_TABLE PT ON PC.purchaseId = PT.purchaseId
-		WHERE PT.credit = 1
-        ORDER BY PC.purchaseId;

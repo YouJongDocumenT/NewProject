@@ -17,4 +17,6 @@ public interface InventoryMapper {
 
     List<SellingGeoJSON> selectSellingGeometry();
 
+    GeoJSON selectGeometry();
+
 }

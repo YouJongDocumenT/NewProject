@@ -29,9 +29,11 @@ public class InventoryService {
         inventoryMapper.insertLossGeometry(sellingGeoJSON);
     }
 
-
-
     public List<SellingGeoJSON> selectSellingGeometry(){
         return inventoryMapper.selectSellingGeometry();
+    }
+
+    public GeoJSON selectGeometry(){
+        return inventoryMapper.selectGeometry();
     }
 }

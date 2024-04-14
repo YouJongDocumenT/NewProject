@@ -2,6 +2,7 @@ package com.ras.bandostockproject.controller;
 
 import com.ras.bandostockproject.dto.inventory.GeoJSON;
 import com.ras.bandostockproject.dto.inventory.SellingGeoJSON;
+import com.ras.bandostockproject.service.inventory.GeometryUtils;
 import com.ras.bandostockproject.service.inventory.InventoryService;
 import com.ras.bandostockproject.service.inventory.RectangleCutter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,19 @@ public class InventoryController {
     @PostMapping("/cutting")
     public ResponseEntity<?> cutting(@RequestBody Map<String, Integer> payload){
 
-        RectangleCutter cutter = new RectangleCutter(20, 100);
+        int[] dimensions = GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry());   // 원본 재고 길이 받아와서 가로 세로 길이 배열에 저장
+        System.out.println(inventoryService.selectGeometry());
+        System.out.println(dimensions[0]+ " " + dimensions[1]);
+
+        RectangleCutter cutter = new RectangleCutter(dimensions[0], dimensions[1]);     // 가로 세로 길이 만큼 재고 생성
+
+        // 모든 좌표 불러와서 실재 재고 만큼 자르기
+
+        System.out.println("create successfully");
 
         SellingGeoJSON sellingGeoJSON = new SellingGeoJSON();
         sellingGeoJSON.setRectangle(cutter.cutRectangle(payload.get("item1"), payload.get("item2")));
+        cutter.printBoard();
         sellingGeoJSON.setOriginId(1);
         System.out.println("cutting : " + sellingGeoJSON.getRectangle());
         inventoryService.insertSellingGeometry(sellingGeoJSON);
@@ -43,6 +53,7 @@ public class InventoryController {
     @GetMapping("/createInventory")
     public void createInventory(){
 
+        // 재고 새로추가하는 버튼
         GeoJSON geoJSON = new GeoJSON();
         geoJSON.setRectangle("(0 0, 100 0, 0 100, 100 100, 0 0)");
         inventoryService.insertGeometry(geoJSON);
@@ -52,6 +63,8 @@ public class InventoryController {
     @GetMapping("/inventory")
     public String inventory(Model model){
 
+        
+        // 재고 아이디에 맞게 selling 테이블 데이터 불러오기
         RectangleCutter cutter = new RectangleCutter(20, 100);
 
         cutter.cutRectangle(3, 4);

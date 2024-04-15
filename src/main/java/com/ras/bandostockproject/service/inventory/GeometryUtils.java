@@ -64,4 +64,5 @@ public class GeometryUtils {
             return new int[]{0, 0};  // Return default value in case of an error
         }
     }
+
 }

@@ -39,17 +39,19 @@ public class InventoryController {
 
         RectangleCutter cutter = new RectangleCutter(dimensions[0], dimensions[1]);     // 가로 세로 길이 만큼 재고 생성
 
-        GeometryUtils utils = new GeometryUtils();
-        System.out.println("list : "+utils.parseCoordinates(inventoryService.selectSellingGeometry()));
-        // 모든 좌표 불러와서 실재 재고 만큼 자르기
 
-        List<Polygon> polygons = new ArrayList<>();
-        polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());
+        if(!inventoryService.selectSellingGeometry().isEmpty())
+        {
+            GeometryUtils utils = new GeometryUtils();
+            // 모든 좌표 불러와서 실재 재고 만큼 자르기
 
-        for (Polygon polygon : polygons){
-            cutter.cutRectangle(polygon);
+            List<Polygon> polygons = new ArrayList<>();
+            polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());    // # db에서 좌표 받아서 list로 저장
+
+            for (Polygon polygon : polygons) {
+                cutter.cutRectangle(polygon);
+            }
         }
-
         System.out.println("create successfully");
 
         SellingGeoJSON sellingGeoJSON = new SellingGeoJSON();
@@ -62,60 +64,38 @@ public class InventoryController {
         return ResponseEntity.ok().body("Cutting request processed successfully");
     }
 
-    @GetMapping("/createInventory")
-    public void createInventory(){
+    @PostMapping("/createInventory")
+    public ResponseEntity<?> createInventory(@RequestBody Map<String, Integer> payload){
 
+        System.out.println(payload.get("item1"));
+        System.out.println(payload.get("item2"));
+        String inputPoint = "(0 0, " + payload.get("item1") + " 0, 0 " + payload.get("item2") + ", " + payload.get("item1") + " " + payload.get("item2")
+            + "," + " 0 0)";
         // 재고 새로추가하는 버튼
         GeoJSON geoJSON = new GeoJSON();
-        geoJSON.setRectangle("(0 0, 100 0, 0 100, 100 100, 0 0)");
+        geoJSON.setRectangle(inputPoint);
         inventoryService.insertGeometry(geoJSON);
         System.out.println("Start_Inventory"+geoJSON.getRectangle());
+        return ResponseEntity.ok().body("createInventory request processed successfully");
     }
 
     @GetMapping("/inventory")
     public String inventory(Model model){
 
-        
-        // 재고 아이디에 맞게 selling 테이블 데이터 불러오기
-        RectangleCutter cutter = new RectangleCutter(20, 100);
+        GeometryUtils utils = new GeometryUtils();
+        // 모든 좌표 불러와서 실재 재고 만큼 자르기
 
-        cutter.cutOptimalRectangle (3, 4);
-        cutter.cutOptimalRectangle (5, 5);
-        cutter.cutOptimalRectangle (10, 10);
-        cutter.cutOptimalRectangle (3, 4);
-        cutter.cutOptimalRectangle (3, 4);
-        cutter.cutOptimalRectangle (3, 4);
-        cutter.cutOptimalRectangle (2, 4);
-        cutter.cutOptimalRectangle (4, 2);
+        GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry());      // # 원본이 되는 재고 좌표 가져오는 서비스
+        System.out.println(inventoryService.selectGeometry());
+        System.out.println("원본 재고 가로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[0]);
+        System.out.println("원본 재고 세로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[1]);
 
-        cutter.printBoard();
+        List<Polygon> polygons = new ArrayList<>();
+        polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());    // # db에서 좌표 받아서 list로 저장, model로 넘겨줘야 할 list
 
-//        List<SellingGeoJSON> list = inventoryService.selectSellingGeometry();
-//        System.out.println(list);
-//        GeometryUtils utils = new GeometryUtils();
-//        List<Polygon> allPolygons = GeometryUtils.parseCoordinates(list);
-//        for (Polygon polygon : allPolygons) {
-//            System.out.println("Polygon Points: " + polygon);
-//        }
-
-        //        InventoryManager inventoryManager = new InventoryManager(100, 200);
-//        inventoryManager.markSoldArea(1, 1, 50, 50);
-//        inventoryManager.markSoldArea(51, 1, 62 , 62);
-//        inventoryManager.markSoldArea(0, 0, 10, 10);  // Overlapping test
-//
-//        System.out.println("Total unavailable area before scrap: " + inventoryManager.calculateTotalUnavailableArea() + " cm^2");
-//        inventoryManager.printInventory();
-//        // Marking a scrap area and calculating loss
-//        int lossArea = inventoryManager.calculateLossArea(50, 50, 70, 70);
-//        System.out.println("Loss area due to scrap: " + lossArea + " cm^2");
-//
-//        inventoryManager.printInventory();
-//        System.out.println("Total unavailable area after scrap: " + inventoryManager.calculateTotalUnavailableArea() + " cm^2");
-
-        // cutting 하면서 실적 면적은 컬럼에 += 대입하며 업데이트
-
-        // inventory에 redirect
-        // 모든 좌표들을 불러와서 면적 계산 후 화면에 표기
+        System.out.println(polygons);
+        // # 모든 좌표를 JSON으로 받아오는 서비스;
+        // inventoryService.selectSellingGeometry();   
 
         return "inventory";
     }

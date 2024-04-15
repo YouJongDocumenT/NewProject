@@ -12,9 +12,18 @@ public class RectangleCutter {
     public RectangleCutter(int height, int width) {
         this.board = new boolean[height][width]; // false로 초기화 (사용 가능한 상태)
         this.prefixSum = new int[height + 1][width + 1];
+        computePrefixSumInitial(); // Initialize prefix sum for the initial state
     }
 
-    private void computePrefixSum() {
+    private void computePrefixSumInitial() {
+        for (int i = 1; i <= board.length; i++) {
+            for (int j = 1; j <= board[0].length; j++) {
+                prefixSum[i][j] = prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1] + (board[i-1][j-1] ? 0 : 1);
+            }
+        }
+    }
+
+    public void computePrefixSum() {
         for (int i = 1; i <= board.length; i++) {
             for (int j = 1; j <= board[0].length; j++) {
                 prefixSum[i][j] = (board[i-1][j-1] ? 0 : 1)

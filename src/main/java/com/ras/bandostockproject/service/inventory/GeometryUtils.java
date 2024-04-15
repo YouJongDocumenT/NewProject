@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GeometryUtils {
 
-    public static List<Polygon> parseCoordinates(List<SellingGeoJSON> geometries) {
+    public List<Polygon> parseCoordinates(List<SellingGeoJSON> geometries) {
         List<Polygon> polygons = new ArrayList<>(); // This will store the polygons with their points
 
         ObjectMapper mapper = new ObjectMapper();

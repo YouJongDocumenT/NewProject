@@ -1,5 +1,10 @@
 package com.ras.bandostockproject.service.inventory;
 
+import com.ras.bandostockproject.dto.inventory.Point;
+import com.ras.bandostockproject.dto.inventory.Polygon;
+
+import java.util.List;
+
 public class RectangleCutter {
     private boolean[][] board;
     private int[][] prefixSum;
@@ -12,26 +17,42 @@ public class RectangleCutter {
     private void computePrefixSum() {
         for (int i = 1; i <= board.length; i++) {
             for (int j = 1; j <= board[0].length; j++) {
-                prefixSum[i][j] = (board[i - 1][j - 1] ? 0 : 1) // if board[i-1][j-1] is true, then 0, else 1
-                        + prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1];
+                prefixSum[i][j] = (board[i-1][j-1] ? 0 : 1)
+                        + prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1];
             }
         }
     }
 
-    public String cutRectangle(int rectHeight, int rectWidth) {
-        computePrefixSum();
-        for (int i = 0; i <= board.length - rectHeight; i++) {
-            for (int j = 0; j <= board[0].length - rectWidth; j++) {
+    public String cutOptimalRectangle(int rectHeight, int rectWidth) {
+        for (int j = 0; j <= board[0].length - rectWidth; j++) {
+            for (int i = 0; i <= board.length - rectHeight; i++) {
                 if (isSpaceAvailable(i, j, rectHeight, rectWidth)) {
                     fillSpace(i, j, rectHeight, rectWidth);
-                    String points = formatPoints(i, j, rectHeight, rectWidth);
-                    System.out.println("Rectangle (" + rectHeight + "x" + rectWidth + ") cut successfully at " + points);
-                    return points;
+                    return formatPoints(i, j, rectHeight, rectWidth);
                 }
             }
         }
-        System.out.println("Failed to cut rectangle (" + rectHeight + "x" + rectWidth + "): Not enough space.");
         return null;
+    }
+
+    public void cutRectangle(Polygon polygon) {
+        List<Point> points = polygon.getPoints();
+        Point bottomLeft = points.get(0);
+        Point topRight = points.get(2);
+
+        int startX = (int) bottomLeft.getX();
+        int startY = (int) bottomLeft.getY();
+        int endX = (int) topRight.getX();
+        int endY = (int) topRight.getY();
+
+        for (int j = startX; j < endX; j++) {
+            for (int i = startY; i < endY; i++) {
+                if (i >= 0 && i < board.length && j >= 0 && j < board[0].length) {
+                    board[i][j] = true;
+                }
+            }
+        }
+        computePrefixSum();
     }
 
     private boolean isSpaceAvailable(int startY, int startX, int rectHeight, int rectWidth) {
@@ -45,7 +66,7 @@ public class RectangleCutter {
     private void fillSpace(int startY, int startX, int rectHeight, int rectWidth) {
         for (int i = startY; i < startY + rectHeight; i++) {
             for (int j = startX; j < startX + rectWidth; j++) {
-                board[i][j] = true; // 해당 공간을 사용 중으로 표시
+                board[i][j] = true;
             }
         }
         computePrefixSum(); // Recompute prefix sums after updating the board

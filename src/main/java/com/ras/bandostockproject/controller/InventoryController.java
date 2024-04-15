@@ -1,6 +1,7 @@
 package com.ras.bandostockproject.controller;
 
 import com.ras.bandostockproject.dto.inventory.GeoJSON;
+import com.ras.bandostockproject.dto.inventory.Polygon;
 import com.ras.bandostockproject.dto.inventory.SellingGeoJSON;
 import com.ras.bandostockproject.service.inventory.GeometryUtils;
 import com.ras.bandostockproject.service.inventory.InventoryService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -36,12 +39,21 @@ public class InventoryController {
 
         RectangleCutter cutter = new RectangleCutter(dimensions[0], dimensions[1]);     // 가로 세로 길이 만큼 재고 생성
 
+        GeometryUtils utils = new GeometryUtils();
+        System.out.println("list : "+utils.parseCoordinates(inventoryService.selectSellingGeometry()));
         // 모든 좌표 불러와서 실재 재고 만큼 자르기
+
+        List<Polygon> polygons = new ArrayList<>();
+        polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());
+
+        for (Polygon polygon : polygons){
+            cutter.cutRectangle(polygon);
+        }
 
         System.out.println("create successfully");
 
         SellingGeoJSON sellingGeoJSON = new SellingGeoJSON();
-        sellingGeoJSON.setRectangle(cutter.cutRectangle(payload.get("item1"), payload.get("item2")));
+        sellingGeoJSON.setRectangle(cutter.cutOptimalRectangle(payload.get("item1"), payload.get("item2")));
         cutter.printBoard();
         sellingGeoJSON.setOriginId(1);
         System.out.println("cutting : " + sellingGeoJSON.getRectangle());
@@ -67,14 +79,14 @@ public class InventoryController {
         // 재고 아이디에 맞게 selling 테이블 데이터 불러오기
         RectangleCutter cutter = new RectangleCutter(20, 100);
 
-        cutter.cutRectangle(3, 4);
-        cutter.cutRectangle(5, 5);
-        cutter.cutRectangle(10, 10);
-        cutter.cutRectangle(3, 4);
-        cutter.cutRectangle(3, 4);
-        cutter.cutRectangle(3, 4);
-        cutter.cutRectangle(2, 4);
-        cutter.cutRectangle(4, 2);
+        cutter.cutOptimalRectangle (3, 4);
+        cutter.cutOptimalRectangle (5, 5);
+        cutter.cutOptimalRectangle (10, 10);
+        cutter.cutOptimalRectangle (3, 4);
+        cutter.cutOptimalRectangle (3, 4);
+        cutter.cutOptimalRectangle (3, 4);
+        cutter.cutOptimalRectangle (2, 4);
+        cutter.cutOptimalRectangle (4, 2);
 
         cutter.printBoard();
 

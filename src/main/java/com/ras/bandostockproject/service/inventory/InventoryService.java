@@ -36,4 +36,6 @@ public class InventoryService {
     public GeoJSON selectGeometry(){
         return inventoryMapper.selectGeometry();
     }
+
+    public List<Integer> selectInventoryIdList(){return inventoryMapper.selectInventoryIdList();}
 }

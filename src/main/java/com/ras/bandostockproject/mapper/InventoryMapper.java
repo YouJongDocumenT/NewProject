@@ -19,4 +19,5 @@ public interface InventoryMapper {
 
     GeoJSON selectGeometry();
 
+    List<Integer> selectInventoryIdList();
 }

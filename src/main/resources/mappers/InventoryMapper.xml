@@ -29,5 +29,11 @@
         VALUES(ST_GeomFromText('POLYGON(${rectangle})'))
     </insert>
 
+    <!-- 원본 재고 id List 불러오기 -->
+    <select id="selectInventoryIdList" resultType="int">
+        select idGeometry from geometry
+    </select>
+
+
 
 </mapper>

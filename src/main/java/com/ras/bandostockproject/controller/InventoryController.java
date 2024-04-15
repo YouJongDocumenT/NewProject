@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +67,8 @@ public class InventoryController {
 
         System.out.println(payload.get("item1"));
         System.out.println(payload.get("item2"));
-        String inputPoint = "(0 0, " + payload.get("item1") + " 0, 0 " + payload.get("item2") + ", " + payload.get("item1") + " " + payload.get("item2")
-            + "," + " 0 0)";
+        String inputPoint = "(0 0, " + payload.get("item1") + " 0, 0 " + payload.get("item2") + ", " + payload.get("item1")
+                            + " " + payload.get("item2") + "," + " 0 0)";
         // 재고 새로추가하는 버튼
         GeoJSON geoJSON = new GeoJSON();
         geoJSON.setRectangle(inputPoint);
@@ -81,6 +79,8 @@ public class InventoryController {
 
     @GetMapping("/inventory")
     public String inventory(Model model){
+
+        // # 재고 아이디
 
         GeometryUtils utils = new GeometryUtils();
         // 모든 좌표 불러와서 실재 재고 만큼 자르기
@@ -111,5 +111,4 @@ public class InventoryController {
         // 실적 좌표들을 먼저 계산하고 loss를 계산후 loss난 면적만큼 손실에 += 대입연산 업데이트
         
     }
-
 }

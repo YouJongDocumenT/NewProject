@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ras.bandostockproject.mapper.DataMapper">
+
+    <select id="getYearDataListSell" resultType="com.ras.bandostockproject.dto.SellDataByYearDTO">
+        SELECT
+            SUM(CASE WHEN MONTH(sellDate) = 1 THEN sellPrice ELSE 0 END) AS SellSumByJan,
+            SUM(CASE WHEN MONTH(sellDate) = 1 THEN 1 ELSE 0 END) AS SellCountByJan,
+            SUM(CASE WHEN MONTH(sellDate) = 2 THEN sellPrice ELSE 0 END) AS SellSumByFeb,
+            SUM(CASE WHEN MONTH(sellDate) = 2 THEN 1 ELSE 0 END) AS SellCountByFeb,
+            SUM(CASE WHEN MONTH(sellDate) = 3 THEN sellPrice ELSE 0 END) AS SellSumByMar,
+            SUM(CASE WHEN MONTH(sellDate) = 3 THEN 1 ELSE 0 END) AS SellCountByMar,
+            SUM(CASE WHEN MONTH(sellDate) = 4 THEN sellPrice ELSE 0 END) AS SellSumByApr,
+            SUM(CASE WHEN MONTH(sellDate) = 4 THEN 1 ELSE 0 END) AS SellCountByApr,
+            SUM(CASE WHEN MONTH(sellDate) = 5 THEN sellPrice ELSE 0 END) AS SellSumByMay,
+            SUM(CASE WHEN MONTH(sellDate) = 5 THEN 1 ELSE 0 END) AS SellCountByMay,
+            SUM(CASE WHEN MONTH(sellDate) = 6 THEN sellPrice ELSE 0 END) AS SellSumByJun,
+            SUM(CASE WHEN MONTH(sellDate) = 6 THEN 1 ELSE 0 END) AS SellCountByJun,
+            SUM(CASE WHEN MONTH(sellDate) = 7 THEN sellPrice ELSE 0 END) AS SellSumByJul,
+            SUM(CASE WHEN MONTH(sellDate) = 7 THEN 1 ELSE 0 END) AS SellCountByJul,
+            SUM(CASE WHEN MONTH(sellDate) = 8 THEN sellPrice ELSE 0 END) AS SellSumByAug,
+            SUM(CASE WHEN MONTH(sellDate) = 8 THEN 1 ELSE 0 END) AS SellCountByAug,
+            SUM(CASE WHEN MONTH(sellDate) = 9 THEN sellPrice ELSE 0 END) AS SellSumBySep,
+            SUM(CASE WHEN MONTH(sellDate) = 9 THEN 1 ELSE 0 END) AS SellCountBySep,
+            SUM(CASE WHEN MONTH(sellDate) = 10 THEN sellPrice ELSE 0 END) AS SellSumByOct,
+            SUM(CASE WHEN MONTH(sellDate) = 10 THEN 1 ELSE 0 END) AS SellCountByOct,
+            SUM(CASE WHEN MONTH(sellDate) = 11 THEN sellPrice ELSE 0 END) AS SellSumByNov,
+            SUM(CASE WHEN MONTH(sellDate) = 11 THEN 1 ELSE 0 END) AS SellCountByNov,
+            SUM(CASE WHEN MONTH(sellDate) = 12 THEN sellPrice ELSE 0 END) AS SellSumByDec,
+            SUM(CASE WHEN MONTH(sellDate) = 12 THEN 1 ELSE 0 END) AS SellCountByDec
+        FROM
+            SELL_TABLE
+        WHERE
+            YEAR(sellDate) = #{yearData};
+    </select>
+
+    <select id="getYearDataListByPur" resultType="com.ras.bandostockproject.dto.PurchaseDataByYearDTO">
+        SELECT
+            SUM(CASE WHEN MONTH(purchaseDate) = 1 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJan,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 1 THEN 1 END) AS PurchaseCountByJan,
+            SUM(CASE WHEN MONTH(purchaseDate) = 2 THEN purchasePrice ELSE 0 END) AS PurchaseSumByFeb,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 2 THEN 1 END) AS PurchaseCountByFeb,
+            SUM(CASE WHEN MONTH(purchaseDate) = 3 THEN purchasePrice ELSE 0 END) AS PurchaseSumByMar,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 3 THEN 1 END) AS PurchaseCountByMar,
+            SUM(CASE WHEN MONTH(purchaseDate) = 4 THEN purchasePrice ELSE 0 END) AS PurchaseSumByApr,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 4 THEN 1 END) AS PurchaseCountByApr,
+            SUM(CASE WHEN MONTH(purchaseDate) = 5 THEN purchasePrice ELSE 0 END) AS PurchaseSumByMay,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 5 THEN 1 END) AS PurchaseCountByMay,
+            SUM(CASE WHEN MONTH(purchaseDate) = 6 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJun,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 6 THEN 1 END) AS PurchaseCountByJun,
+            SUM(CASE WHEN MONTH(purchaseDate) = 7 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJul,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 7 THEN 1 END) AS PurchaseCountByJul,
+            SUM(CASE WHEN MONTH(purchaseDate) = 8 THEN purchasePrice ELSE 0 END) AS PurchaseSumByAug,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 8 THEN 1 END) AS PurchaseCountByAug,
+            SUM(CASE WHEN MONTH(purchaseDate) = 9 THEN purchasePrice ELSE 0 END) AS PurchaseSumBySep,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 9 THEN 1 END) AS PurchaseCountBySep,
+            SUM(CASE WHEN MONTH(purchaseDate) = 10 THEN purchasePrice ELSE 0 END) AS PurchaseSumByOct,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 10 THEN 1 END) AS PurchaseCountByOct,
+            SUM(CASE WHEN MONTH(purchaseDate) = 11 THEN purchasePrice ELSE 0 END) AS PurchaseSumByNov,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 11 THEN 1 END) AS PurchaseCountByNov,
+            SUM(CASE WHEN MONTH(purchaseDate) = 12 THEN purchasePrice ELSE 0 END) AS PurchaseSumByDec,
+            COUNT(CASE WHEN MONTH(purchaseDate) = 12 THEN 1 END) AS PurchaseCountByDec
+        FROM PURCHASE_TABLE
+        WHERE YEAR(purchaseDate) = #{yearData};
+    </select>
+
+
+    <select id="getPnlData" resultType="com.ras.bandostockproject.dto.PNLRatioDTO">
+        SELECT
+            (SELECT SUM(purchasePrice) FROM PURCHASE_TABLE WHERE YEAR(purchaseDate) = #{yearData} AND MONTH(purchaseDate) = #{monthData}) AS AllSumPce,
+            (SELECT SUM(sellPrice) FROM SELL_TABLE WHERE YEAR(sellDate) = #{yearData} AND MONTH(sellDate) = #{monthData}) AS AllSumSce;
+    </select>
+
+    <select id="getPreRecivingData" resultType="com.ras.bandostockproject.dto.PrereceivingRatioDTO">
+        SELECT
+            SUM(CASE WHEN preReceiving = 0 THEN 1 ELSE 0 END) AS pRequallZeroCount,
+            SUM(CASE WHEN preReceiving = 0 THEN sellPrice ELSE 0 END) AS sellSumPceZero,
+            SUM(CASE WHEN preReceiving = 1 THEN 1 ELSE 0 END) AS pRequallOneCount,
+            SUM(CASE WHEN preReceiving = 1 THEN sellPrice ELSE 0 END) AS sellSumPceOne
+        FROM
+            SELL_TABLE
+        WHERE
+            YEAR(sellDate) = #{yearData}
+          AND MONTH(sellDate) = #{monthData};
+    </select>
+
+</mapper>

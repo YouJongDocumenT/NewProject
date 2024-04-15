@@ -167,714 +167,940 @@
 
 </head>
 <body data-background-color="dark">
-	<div class="wrapper sidebar_minimize">
-		<div class="main-header">
-			<!-- Logo Header -->
-			<div class="logo-header" data-background-color="dark2">
+<div class="wrapper sidebar_minimize">
+	<div class="main-header">
+		<!-- Logo Header -->
+		<div class="logo-header" data-background-color="dark2">
 
-				<a href="../index.html" class="logo">
-					<img src="../../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
-				</a>
-				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+			<a href="../index.html" class="logo">
+				<img src="../../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+			</a>
+			<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
 						<i class="icon-menu"></i>
 					</span>
+			</button>
+			<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+			<div class="nav-toggle">
+				<button class="btn btn-toggle toggle-sidebar">
+					<i class="icon-menu"></i>
 				</button>
-				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
-				<div class="nav-toggle">
-					<button class="btn btn-toggle toggle-sidebar">
-						<i class="icon-menu"></i>
-					</button>
-				</div>
 			</div>
-			<!-- End Logo Header -->
+		</div>
+		<!-- End Logo Header -->
 
-			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
-				<div class="container-fluid">
-					<div class="collapse" id="search-nav">
-						<form class="navbar-left navbar-form nav-search mr-md-3">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<button type="submit" class="btn btn-search pr-1">
-										<i class="fa fa-search search-icon"></i>
-									</button>
-								</div>
-								<input type="text" placeholder="Search ..." class="form-control">
+		<!-- Navbar Header -->
+		<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+			<div class="container-fluid">
+				<div class="collapse" id="search-nav">
+					<form class="navbar-left navbar-form nav-search mr-md-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<button type="submit" class="btn btn-search pr-1">
+									<i class="fa fa-search search-icon"></i>
+								</button>
 							</div>
-						</form>
-					</div>
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item toggle-nav-search hidden-caret">
-							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
-								<i class="fa fa-search"></i>
-							</a>
-						</li>
-						<li class="nav-item dropdown hidden-caret">
-							<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-envelope"></i>
-							</a>
-							<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
-								<li>
-									<div class="dropdown-title d-flex justify-content-between align-items-center">
-										Messages
-										<a href="#" class="small">Mark all as read</a>
-									</div>
-								</li>
-								<li>
-									<div class="message-notif-scroll scrollbar-outer">
-										<div class="notif-center">
-											<a href="#">
-												<div class="notif-img">
-													<img src="../../assets/img/jm_denis.jpg" alt="Img Profile">
-												</div>
-												<div class="notif-content">
-													<span class="subject">Jimmy Denis</span>
-													<span class="block">
-														How are you ?
-													</span>
-													<span class="time">5 minutes ago</span>
-												</div>
-											</a>
-											<a href="#">
-												<div class="notif-img">
-													<img src="../../assets/img/chadengle.jpg" alt="Img Profile">
-												</div>
-												<div class="notif-content">
-													<span class="subject">Chad</span>
-													<span class="block">
-														Ok, Thanks !
-													</span>
-													<span class="time">12 minutes ago</span>
-												</div>
-											</a>
-											<a href="#">
-												<div class="notif-img">
-													<img src="../../assets/img/mlane.jpg" alt="Img Profile">
-												</div>
-												<div class="notif-content">
-													<span class="subject">Jhon Doe</span>
-													<span class="block">
-														Ready for the meeting today...
-													</span>
-													<span class="time">12 minutes ago</span>
-												</div>
-											</a>
-											<a href="#">
-												<div class="notif-img">
-													<img src="../../assets/img/talha.jpg" alt="Img Profile">
-												</div>
-												<div class="notif-content">
-													<span class="subject">Talha</span>
-													<span class="block">
-														Hi, Apa Kabar ?
-													</span>
-													<span class="time">17 minutes ago</span>
-												</div>
-											</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item dropdown hidden-caret">
-							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-bell"></i>
-								<span class="notification">4</span>
-							</a>
-							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-								<li>
-									<div class="dropdown-title">You have 4 new notification</div>
-								</li>
-								<li>
+							<input type="text" placeholder="Search ..." class="form-control">
+						</div>
+					</form>
+				</div>
+				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+					<li class="nav-item toggle-nav-search hidden-caret">
+						<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+							<i class="fa fa-search"></i>
+						</a>
+					</li>
+					<li class="nav-item dropdown hidden-caret">
+						<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-envelope"></i>
+						</a>
+						<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+							<li>
+								<div class="dropdown-title d-flex justify-content-between align-items-center">
+									Messages
+									<a href="#" class="small">Mark all as read</a>
+								</div>
+							</li>
+							<li>
+								<div class="message-notif-scroll scrollbar-outer">
 									<div class="notif-center">
 										<a href="#">
-											<div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+											<div class="notif-img">
+												<img src="../../assets/img/jm_denis.jpg" alt="Img Profile">
+											</div>
 											<div class="notif-content">
+												<span class="subject">Jimmy Denis</span>
 												<span class="block">
-													New user registered
-												</span>
+														How are you ?
+													</span>
 												<span class="time">5 minutes ago</span>
 											</div>
 										</a>
 										<a href="#">
-											<div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+											<div class="notif-img">
+												<img src="../../assets/img/chadengle.jpg" alt="Img Profile">
+											</div>
 											<div class="notif-content">
+												<span class="subject">Chad</span>
 												<span class="block">
-													Rahmad commented on Admin
-												</span>
+														Ok, Thanks !
+													</span>
 												<span class="time">12 minutes ago</span>
 											</div>
 										</a>
 										<a href="#">
 											<div class="notif-img">
-												<img src="../../assets/img/profile2.jpg" alt="Img Profile">
+												<img src="../../assets/img/mlane.jpg" alt="Img Profile">
 											</div>
 											<div class="notif-content">
+												<span class="subject">Jhon Doe</span>
 												<span class="block">
-													Reza send messages to you
-												</span>
+														Ready for the meeting today...
+													</span>
 												<span class="time">12 minutes ago</span>
 											</div>
 										</a>
 										<a href="#">
-											<div class="notif-icon notif-danger"> <i class="fa fa-heart"></i> </div>
+											<div class="notif-img">
+												<img src="../../assets/img/talha.jpg" alt="Img Profile">
+											</div>
 											<div class="notif-content">
+												<span class="subject">Talha</span>
 												<span class="block">
-													Farrah liked Admin
-												</span>
+														Hi, Apa Kabar ?
+													</span>
 												<span class="time">17 minutes ago</span>
 											</div>
 										</a>
 									</div>
-								</li>
-								<li>
-									<a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item dropdown hidden-caret">
-							<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-								<i class="fas fa-layer-group"></i>
-							</a>
-							<div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
-								<div class="quick-actions-header">
-									<span class="title mb-1">Quick Actions</span>
-									<span class="subtitle op-8">Shortcuts</span>
 								</div>
-								<div class="quick-actions-scroll scrollbar-outer">
-									<div class="quick-actions-items">
-										<div class="row m-0">
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-file-1"></i>
-													<span class="text">Generated Report</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-database"></i>
-													<span class="text">Create New Database</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-pen"></i>
-													<span class="text">Create New Post</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-interface-1"></i>
-													<span class="text">Create New Task</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-list"></i>
-													<span class="text">Completed Tasks</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="#">
-												<div class="quick-actions-item">
-													<i class="flaticon-file"></i>
-													<span class="text">Create New Invoice</span>
-												</div>
-											</a>
+							</li>
+							<li>
+								<a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown hidden-caret">
+						<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-bell"></i>
+							<span class="notification">4</span>
+						</a>
+						<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+							<li>
+								<div class="dropdown-title">You have 4 new notification</div>
+							</li>
+							<li>
+								<div class="notif-center">
+									<a href="#">
+										<div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+										<div class="notif-content">
+												<span class="block">
+													New user registered
+												</span>
+											<span class="time">5 minutes ago</span>
 										</div>
+									</a>
+									<a href="#">
+										<div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+										<div class="notif-content">
+												<span class="block">
+													Rahmad commented on Admin
+												</span>
+											<span class="time">12 minutes ago</span>
+										</div>
+									</a>
+									<a href="#">
+										<div class="notif-img">
+											<img src="../../assets/img/profile2.jpg" alt="Img Profile">
+										</div>
+										<div class="notif-content">
+												<span class="block">
+													Reza send messages to you
+												</span>
+											<span class="time">12 minutes ago</span>
+										</div>
+									</a>
+									<a href="#">
+										<div class="notif-icon notif-danger"> <i class="fa fa-heart"></i> </div>
+										<div class="notif-content">
+												<span class="block">
+													Farrah liked Admin
+												</span>
+											<span class="time">17 minutes ago</span>
+										</div>
+									</a>
+								</div>
+							</li>
+							<li>
+								<a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown hidden-caret">
+						<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+							<i class="fas fa-layer-group"></i>
+						</a>
+						<div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+							<div class="quick-actions-header">
+								<span class="title mb-1">Quick Actions</span>
+								<span class="subtitle op-8">Shortcuts</span>
+							</div>
+							<div class="quick-actions-scroll scrollbar-outer">
+								<div class="quick-actions-items">
+									<div class="row m-0">
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-file-1"></i>
+												<span class="text">Generated Report</span>
+											</div>
+										</a>
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-database"></i>
+												<span class="text">Create New Database</span>
+											</div>
+										</a>
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-pen"></i>
+												<span class="text">Create New Post</span>
+											</div>
+										</a>
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-interface-1"></i>
+												<span class="text">Create New Task</span>
+											</div>
+										</a>
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-list"></i>
+												<span class="text">Completed Tasks</span>
+											</div>
+										</a>
+										<a class="col-6 col-md-4 p-0" href="#">
+											<div class="quick-actions-item">
+												<i class="flaticon-file"></i>
+												<span class="text">Create New Invoice</span>
+											</div>
+										</a>
 									</div>
 								</div>
 							</div>
-						</li>
-						<li class="nav-item dropdown hidden-caret">
-							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-								<div class="avatar-sm">
-									<img src="../../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-								</div>
-							</a>
-							<ul class="dropdown-menu dropdown-user animated fadeIn">
-								<div class="dropdown-user-scroll scrollbar-outer">
-									<li>
-										<div class="user-box">
-											<div class="avatar-lg"><img src="../../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
-											<div class="u-text">
-												<h4>반도테크</h4>
-												<p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">My Profile</a>
-										<a class="dropdown-item" href="#">My Balance</a>
-										<a class="dropdown-item" href="#">Inbox</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Account Setting</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Logout</a>
-									</li>
-								</div>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-		</div>
-		<!-- Sidebar -->
-		<div class="sidebar sidebar-style-2" data-background-color="dark2">
-			<div class="sidebar-wrapper scrollbar scrollbar-inner">
-				<div class="sidebar-content">
-					<div class="user">
-						<div class="avatar-sm float-left mr-2">
-							<img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
 						</div>
-						<div class="info">
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+					</li>
+					<li class="nav-item dropdown hidden-caret">
+						<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+							<div class="avatar-sm">
+								<img src="../../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-user animated fadeIn">
+							<div class="dropdown-user-scroll scrollbar-outer">
+								<li>
+									<div class="user-box">
+										<div class="avatar-lg"><img src="../../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+										<div class="u-text">
+											<h4>반도테크</h4>
+											<p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">My Profile</a>
+									<a class="dropdown-item" href="#">My Balance</a>
+									<a class="dropdown-item" href="#">Inbox</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Account Setting</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Logout</a>
+								</li>
+							</div>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- End Navbar -->
+	</div>
+	<!-- Sidebar -->
+	<div class="sidebar sidebar-style-2" data-background-color="dark2">
+		<div class="sidebar-wrapper scrollbar scrollbar-inner">
+			<div class="sidebar-content">
+				<div class="user">
+					<div class="avatar-sm float-left mr-2">
+						<img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+					</div>
+					<div class="info">
+						<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
 									반도테크
 									<span class="user-level">Administrator</span>
 									<span class="caret"></span>
 								</span>
-							</a>
-							<div class="clearfix"></div>
+						</a>
+						<div class="clearfix"></div>
 
-							<div class="collapse in" id="collapseExample">
-								<ul class="nav">
-									<li>
-										<a href="#profile">
-											<span class="link-collapse">My Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#edit">
-											<span class="link-collapse">Edit Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#settings">
-											<span class="link-collapse">Settings</span>
-										</a>
-									</li>
-								</ul>
-							</div>
+						<div class="collapse in" id="collapseExample">
+							<ul class="nav">
+								<li>
+									<a href="#profile">
+										<span class="link-collapse">My Profile</span>
+									</a>
+								</li>
+								<li>
+									<a href="#edit">
+										<span class="link-collapse">Edit Profile</span>
+									</a>
+								</li>
+								<li>
+									<a href="#settings">
+										<span class="link-collapse">Settings</span>
+									</a>
+								</li>
+							</ul>
 						</div>
 					</div>
-					<ul class="nav nav-primary">
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-								<i class="fas fa-home"></i>
-								<p>Dashboard</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="dashboard">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="mainstock">
-											<span class="sub-item">메인페이지</span>
-										</a>
-									</li>
-									<li>
-										<a href="mainstock">
-											<span class="sub-item">재고관리</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-section">
+				</div>
+				<ul class="nav nav-primary">
+					<li class="nav-item">
+						<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+							<i class="fas fa-home"></i>
+							<p>Dashboard</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="dashboard">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="mainstock">
+										<span class="sub-item">메인페이지</span>
+									</a>
+								</li>
+								<li>
+									<a href="mainstock">
+										<span class="sub-item">재고관리</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
-							<h4 class="text-section">Components</h4>
+						<h4 class="text-section">Components</h4>
+					</li>
+					<li class="nav-item">
+						<!-- 이전 선택 태그 토글 -->
+						<a data-toggle="collapse" href="#purchase">
+							<i class="fas fa-layer-group"></i>
+							<p>매입</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="purchase">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="purchase">
+										<span class="sub-item">총 매입</span>
+									</a>
+								</li>
+								<li>
+									<a href="purchasecomplist">
+										<span class="sub-item">거래처별 매입</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/gridsystem.html">
+										<span class="sub-item">매입 등록</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<!-- 이전 선택 태그 토글 -->
+						<a data-toggle="collapse" href="#sell">
+							<i class="fas fa-layer-group"></i>
+							<p>매출</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="sell">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="sell">
+										<span class="sub-item">총 매출</span>
+									</a>
+								</li>
+								<li>
+									<a href="sellcomplist">
+										<span class="sub-item">판매처별 매출</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/gridsystem.html">
+										<span class="sub-item">핀메 등록</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<!-- 이전 선택 태그 토글 -->
+						<a data-toggle="collapse" href="#stock">
+							<i class="fas fa-layer-group"></i>
+							<p>재고</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="stock">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="stock">
+										<span class="sub-item">재고 현황</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/buttons.html">
+										<span class="sub-item">상세 재고 현황</span>
+									</a>
+								</li>
+								<li>
+									<a href="components/gridsystem.html">
+										<span class="sub-item">재고 현황 수정</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<!-- 이전 선택 태그 토글 -->
+						<a data-toggle="collapse" href="#list">
+							<i class="fas fa-layer-group"></i>
+							<p>Data-List</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="list">
+							<ul class="nav nav-collapse">
+								<li>
+									<a href="statepricelist">
+										<span class="sub-item">선입고,외상 목록</span>
+									</a>
+								</li>
+								<li>
+									<a href="companylist">
+										<span class="sub-item">회사 정보</span>
+									</a>
+								</li>
+								<li>
+									<a href="tradelist">
+										<span class="sub-item">거래 현황</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a href="widgets.html">
+							<i class="fas fa-desktop"></i>
+							<p>문의</p>
+							<span class="badge badge-success">4</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="main-panel">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">거래 현황</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a href="#">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
 						</li>
 						<li class="nav-item">
-							<!-- 이전 선택 태그 토글 -->
-							<a data-toggle="collapse" href="#purchase">
-								<i class="fas fa-layer-group"></i>
-								<p>매입</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="purchase">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="purchase">
-											<span class="sub-item">총 매입</span>
-										</a>
-									</li>
-									<li>
-										<a href="purchasecomplist">
-											<span class="sub-item">거래처별 매입</span>
-										</a>
-									</li>
-									<li>
-										<a href="components/gridsystem.html">
-											<span class="sub-item">매입 등록</span>
-										</a>
-									</li>
-								</ul>
-							</div>
+							<a href="#">Data-List</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
 						</li>
 						<li class="nav-item">
-							<!-- 이전 선택 태그 토글 -->
-							<a data-toggle="collapse" href="#sell">
-								<i class="fas fa-layer-group"></i>
-								<p>매출</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="sell">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="sell">
-											<span class="sub-item">총 매출</span>
-										</a>
-									</li>
-									<li>
-										<a href="sellcomplist">
-											<span class="sub-item">판매처별 매출</span>
-										</a>
-									</li>
-									<li>
-										<a href="components/gridsystem.html">
-											<span class="sub-item">핀메 등록</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<!-- 이전 선택 태그 토글 -->
-							<a data-toggle="collapse" href="#stock">
-								<i class="fas fa-layer-group"></i>
-								<p>재고</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="stock">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="stock">
-											<span class="sub-item">재고 현황</span>
-										</a>
-									</li>
-									<li>
-										<a href="components/buttons.html">
-											<span class="sub-item">상세 재고 현황</span>
-										</a>
-									</li>
-									<li>
-										<a href="components/gridsystem.html">
-											<span class="sub-item">재고 현황 수정</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<!-- 이전 선택 태그 토글 -->
-							<a data-toggle="collapse" href="#list">
-								<i class="fas fa-layer-group"></i>
-								<p>Data-List</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="list">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="statepricelist">
-											<span class="sub-item">선입고,외상 목록</span>
-										</a>
-									</li>
-									<li>
-										<a href="companylist">
-											<span class="sub-item">회사 정보</span>
-										</a>
-									</li>
-									<li>
-										<a href="tradelist">
-											<span class="sub-item">거래 현황</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a href="widgets.html">
-								<i class="fas fa-desktop"></i>
-								<p>문의</p>
-								<span class="badge badge-success">4</span>
-							</a>
+							<a href="#">거래 현황</a>
 						</li>
 					</ul>
 				</div>
-			</div>
-		</div>
-		<div class="main-panel">
-			<div class="content">
-				<div class="page-inner">
-					<div class="page-header">
-						<h4 class="page-title">거래 현황</h4>
-						<ul class="breadcrumbs">
-							<li class="nav-home">
-								<a href="#">
-									<i class="flaticon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="flaticon-right-arrow"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Data-List</a>
-							</li>
-							<li class="separator">
-								<i class="flaticon-right-arrow"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">거래 현황</a>
-							</li>
-						</ul>
-					</div>
 
-					<div class="row">
+				<div class="row">
 
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">[ 매입 - 매출 ] Graph</h4>
-								</div>
-								<div class="card-body">
-									<div class="chart-container">
-										<canvas id="multipleLineChart"></canvas>
-									</div>
-								</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">[ 매입 - 매출 ] Graph</h4>
+								<select id="YearBox">
+									<option>년도를 선택하세요.</option>
+									<option>2024</option>
+									<option>2023</option>
+									<option>2022</option>
+								</select>
 							</div>
-						</div>
-
-
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">[ 손익 비율 ] Graph</h4>
-								</div>
-								<div class="card-body">
-									<div class="chart-container">
-										<canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">[ 선입고 비율 ] Graph</h4>
-								</div>
-								<div class="card-body">
-									<div class="chart-container">
-										<canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>
-									</div>
+							<div class="card-body">
+								<div class="chart-container">
+									<canvas id="multipleLineChart"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<footer class="footer">
-				<div class="container-fluid">
-					<nav class="pull-left">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="https://www.themekita.com">
-									ThemeKita
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									Help
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									Licenses
-								</a>
-							</li>
-						</ul>
-					</nav>
-					<div class="copyright ml-auto">
-						2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
+
+
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">[ 손익 비율 ] Graph</h4>
+								<select id="YearBox_Result">
+									<option>년도를 선택하세요.</option>
+									<option>2024</option>
+									<option>2023</option>
+									<option>2022</option>
+								</select>
+								<select id="MonthBox_Result">
+									<option>월을 선택하세요.</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+								</select>
+							</div>
+							<div class="card-body">
+								<div class="chart-container">
+									<canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">[ 선입고 비율 ] Graph</h4>
+								<select id="YearBox_Pre">
+									<option>년도를 선택하세요.</option>
+									<option>2024</option>
+									<option>2023</option>
+									<option>2022</option>
+								</select>
+								<select id="MonthBox_Pre">
+									<option>월을 선택하세요.</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+								</select>
+							</div>
+							<div class="card-body">
+								<div class="chart-container">
+									<canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</footer>
+			</div>
 		</div>
-
-
+		<footer class="footer">
+			<div class="container-fluid">
+				<nav class="pull-left">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="https://www.themekita.com">
+								ThemeKita
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								Help
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								Licenses
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="copyright ml-auto">
+					2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
+				</div>
+			</div>
+		</footer>
 	</div>
-	<!--   Core JS Files   -->
-	<script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
-	<script src="../../assets/js/core/popper.min.js"></script>
-	<script src="../../assets/js/core/bootstrap.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="../../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-	<!-- Chart JS -->
-	<script src="../../assets/js/plugin/chart.js/chart.min.js"></script>
-
-	<!-- jQuery Scrollbar -->
-	<script src="../../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-	<!-- Atlantis JS -->
-	<script src="../../assets/js/atlantis.min.js"></script>
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="../../assets/js/setting-demo2.js"></script>
 
 
+</div>
+<!--   Core JS Files   -->
+<script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../../assets/js/core/popper.min.js"></script>
+<script src="../../assets/js/core/bootstrap.min.js"></script>
+<!-- jQuery UI -->
+<script src="../../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="../../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<!-- Chart JS -->
+<script src="../../assets/js/plugin/chart.js/chart.min.js"></script>
 
-	<script>
-		var pieChart = document.getElementById('pieChart').getContext('2d'),
-				doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
-				multipleLineChart = document.getElementById('multipleLineChart').getContext('2d')
+<!-- jQuery Scrollbar -->
+<script src="../../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<!-- Atlantis JS -->
+<script src="../../assets/js/atlantis.min.js"></script>
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="../../assets/js/setting-demo2.js"></script>
 
 
 
-		var myPieChart = new Chart(pieChart, {
-			type: 'pie',
-			data: {
-				datasets: [{
-					data: [50, 35, 15],
-					backgroundColor :["#1d7af3","#f3545d","#fdaf4b"],
-					borderWidth: 0
-				}],
-				labels: ['New Visitors', 'Subscribers', 'Active Users']
-			},
-			options : {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					position : 'bottom',
-					labels : {
-						fontColor: 'rgb(154, 154, 154)',
-						fontSize: 11,
-						usePointStyle : true,
-						padding: 20
-					}
+<script>
+	var pieChart = document.getElementById('pieChart').getContext('2d'),
+			doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
+			multipleLineChart = document.getElementById('multipleLineChart').getContext('2d')
+</script>
+
+
+
+
+
+<script>
+	$(document).ready(function() {
+		// 탭 클릭 이벤트 리스너 추가
+		$("#YearBox").change(function() {
+			// 선택된 연도 가져오기
+			var selectedYear = $(this).val();
+			// AJAX 요청 보내기
+			$.ajax({
+				url: "http://localhost:8090/tradelist/year",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify({ year: selectedYear }), // 선택된 연도를 데이터로 전송
+				success: function(response) {
+
+					var YearDataListBySell = response.YearDataListBySell;
+					var YearDataListByPur = response.YearDataListByPur
+
+					// YearDataListBySell에서 첫 번째 객체의 sellSumBy--데이터 가져오기
+					var SellSumByJan = YearDataListBySell[0].sellSumByJan;
+					var SellSumByFeb = YearDataListBySell[0].sellSumByFeb;
+					var SellSumByMar = YearDataListBySell[0].sellSumByMar;
+					var SellSumByApr = YearDataListBySell[0].sellSumByApr;
+					var SellSumByMay = YearDataListBySell[0].sellSumByMay;
+					var SellSumByJun = YearDataListBySell[0].sellSumByJun;
+					var SellSumByJul = YearDataListBySell[0].sellSumByJul;
+					var SellSumByAug = YearDataListBySell[0].sellSumByAug;
+					var SellSumBySep = YearDataListBySell[0].sellSumBySep;
+					var SellSumByOct = YearDataListBySell[0].sellSumByOct;
+					var SellSumByNov = YearDataListBySell[0].sellSumByNov;
+					var SellSumByDec = YearDataListBySell[0].sellSumByDec;
+
+
+
+					// YearDataListBySell에서 첫 번째 객체의 SellCountBy--데이터 가져오기
+					var sellCountByJan = YearDataListBySell[0].sellCountByJan;
+					var sellCountByFeb = YearDataListBySell[0].sellCountByFeb;
+					var sellCountByMar = YearDataListBySell[0].sellCountByMar;
+					var sellCountByApr = YearDataListBySell[0].sellCountByApr;
+					var sellCountByMay = YearDataListBySell[0].sellCountByMay;
+					var sellCountByJun = YearDataListBySell[0].sellCountByJun;
+					var sellCountByJul = YearDataListBySell[0].sellCountByJul;
+					var sellCountByAug = YearDataListBySell[0].sellCountByAug;
+					var sellCountBySep = YearDataListBySell[0].sellCountBySep;
+					var sellCountByOct = YearDataListBySell[0].sellCountByOct;
+					var sellCountByNov = YearDataListBySell[0].sellCountByNov;
+					var sellCountByDec = YearDataListBySell[0].sellCountByDec;
+
+					// YearDataListByPur에서 첫 번째 객체의 PurchaseSumBy--데이터 가져오기
+					var purchaseSumByJan = YearDataListByPur[0].purchaseSumByJan;
+					var purchaseSumByFeb = YearDataListByPur[0].purchaseSumByFeb;
+					var purchaseSumByMar = YearDataListByPur[0].purchaseSumByMar;
+					var purchaseSumByApr = YearDataListByPur[0].purchaseSumByApr;
+					var purchaseSumByMay = YearDataListByPur[0].purchaseSumByMay;
+					var purchaseSumByJun = YearDataListByPur[0].purchaseSumByJun;
+					var purchaseSumByJul = YearDataListByPur[0].purchaseSumByJul;
+					var purchaseSumByAug = YearDataListByPur[0].purchaseSumByAug;
+					var purchaseSumBySep = YearDataListByPur[0].purchaseSumBySep;
+					var purchaseSumByOct = YearDataListByPur[0].purchaseSumByOct;
+					var purchaseSumByNov = YearDataListByPur[0].purchaseSumByNov;
+					var purchaseSumByDec = YearDataListByPur[0].purchaseSumByDec;
+
+
+					// YearDataListByPur에서 첫 번째 객체의 PurchaseCountBy--데이터 가져오기
+					var purchaseCountByJan = YearDataListByPur[0].purchaseCountByJan;
+					var purchaseCountByFeb = YearDataListByPur[0].purchaseCountByFeb;
+					var purchaseCountByMar = YearDataListByPur[0].purchaseCountByMar;
+					var purchaseCountByApr = YearDataListByPur[0].purchaseCountByApr;
+					var purchaseCountByMay = YearDataListByPur[0].purchaseCountByMay;
+					var purchaseCountByJun = YearDataListByPur[0].purchaseCountByJun;
+					var purchaseCountByJul = YearDataListByPur[0].purchaseCountByJul;
+					var purchaseCountByAug = YearDataListByPur[0].purchaseCountByAug;
+					var purchaseCountBySep = YearDataListByPur[0].purchaseCountBySep;
+					var purchaseCountByOct = YearDataListByPur[0].purchaseCountByOct;
+					var purchaseCountByNov = YearDataListByPur[0].purchaseCountByNov;
+					var purchaseCountByDec = YearDataListByPur[0].purchaseCountByDec;
+
+
+					var myMultipleLineChart = new Chart(multipleLineChart, {
+						type: 'line',
+						data: {
+							labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+							datasets: [{
+								label: "매입",
+								borderColor: "#f3545d",
+								pointBorderColor: "#FFF",
+								pointBackgroundColor: "#f3545d",
+								pointBorderWidth: 2,
+								pointHoverRadius: 4,
+								pointHoverBorderWidth: 1,
+								pointRadius: 4,
+								backgroundColor: 'transparent',
+								fill: true,
+								borderWidth: 2,
+								data: [purchaseSumByJan, purchaseSumByFeb, purchaseSumByMar, purchaseSumByApr, purchaseSumByMay, purchaseSumByJun, purchaseSumByJul, purchaseSumByAug, purchaseSumBySep, purchaseSumByOct, purchaseSumByNov, purchaseSumByDec]
+							}, {
+								label: "매출",
+								borderColor: "#1d7af3",
+								pointBorderColor: "#FFF",
+								pointBackgroundColor: "#1d7af3",
+								pointBorderWidth: 2,
+								pointHoverRadius: 4,
+								pointHoverBorderWidth: 1,
+								pointRadius: 4,
+								backgroundColor: 'transparent',
+								fill: true,
+								borderWidth: 2,
+								data: [SellSumByJan, SellSumByFeb, SellSumByMar, SellSumByApr, SellSumByMay, SellSumByJun, SellSumByJul, SellSumByAug, SellSumBySep, SellSumByOct, SellSumByNov, SellSumByDec]
+							}]
+						},
+						options: {
+							responsive: true,
+							maintainAspectRatio: false,
+							legend: {
+								position: 'top',
+							},
+							tooltips: {
+								mode: "index",
+								intersect: false,
+								callbacks: {
+									label: function(tooltipItem, data) {
+										var label = data.datasets[tooltipItem.datasetIndex].label || '';
+										var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+										var count = '';
+										if (tooltipItem.datasetIndex === 0) { // 매입 데이터셋
+											var counts = [purchaseCountByJan, purchaseCountByFeb, purchaseCountByMar, purchaseCountByApr, purchaseCountByMay, purchaseCountByJun, purchaseCountByJul, purchaseCountByAug, purchaseCountBySep, purchaseCountByOct, purchaseCountByNov, purchaseCountByDec];
+											count = ` ( 매입 건수: ${counts[tooltipItem.index]} )`;
+										} else { // 매출 데이터셋
+											var counts = [sellCountByJan, sellCountByFeb, sellCountByMar, sellCountByApr, sellCountByMay, sellCountByJun, sellCountByJul, sellCountByAug, sellCountBySep, sellCountByOct, sellCountByNov, sellCountByDec];
+											count = ` ( 매출 건수: ${counts[tooltipItem.index]} )`;
+										}
+										return `${label}: ${value} ${count}`;
+									}
+								},
+								bodySpacing: 4,
+								xPadding: 10,
+								yPadding: 10,
+								caretPadding: 10,
+							},
+							layout: {
+								padding: { left: 15, right: 15, top: 15, bottom: 15 }
+							}
+						}
+					});
+
+
+
+					console.log("Success:", response);
 				},
-				pieceLabel: {
-					render: 'percentage',
-					fontColor: 'white',
-					fontSize: 14,
-				},
-				tooltips: false,
-				layout: {
-					padding: {
-						left: 20,
-						right: 20,
-						top: 20,
-						bottom: 20
-					}
+				error: function(xhr, status, error) {
+					// 오류 발생시 실행될 코드
+					console.error("Error:", status, error);
 				}
-			}
-		})
+			});
+		});
+	});
+</script>
 
-		var myDoughnutChart = new Chart(doughnutChart, {
-			type: 'doughnut',
-			data: {
-				datasets: [{
-					data: [10, 20, 30],
-					backgroundColor: ['#f3545d','#fdaf4b','#1d7af3']
-				}],
 
-				labels: [
-					'Red',
-					'Yellow',
-					'Blue'
-				]
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend : {
-					position: 'bottom'
-				},
-				layout: {
-					padding: {
-						left: 20,
-						right: 20,
-						top: 20,
-						bottom: 20
+<script>
+	$(document).ready(function() {
+		// 클릭 이벤트 리스너 추가
+		$('#YearBox_Result, #MonthBox_Result').change(function() {
+			var year = $('#YearBox_Result').val();
+			var month = $('#MonthBox_Result').val();
+
+			// 년도와 월이 모두 선택되었는지 확인
+			if (year !== "년도를 선택하세요." && month !== "월을 선택하세요.") {
+				// 선택된 값으로 AJAX 요청 보내기
+				$.ajax({
+					url: "http://localhost:8090/tradelist/PNL",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({ year: year, month: month }),
+					success: function(response) {
+
+						var PnlData = response.PnlData;
+
+						var allSumPce = PnlData[0].allSumPce;
+						var allSumSce = PnlData[0].allSumSce;
+
+						var formatAllSumePce = allSumPce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						var formatAllSumeSce = allSumSce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+						var myPieChart = new Chart(pieChart, {
+							type: 'pie',
+							data: {
+								datasets: [{
+									data: [allSumPce, allSumSce],
+									backgroundColor :["#1d7af3","#f3545d"],
+									borderWidth: 0
+								}],
+								labels: ['매입액 ' + '( ' + formatAllSumePce + '원 )', '매출액' + '( ' + formatAllSumeSce + '원 )']
+							},
+							options : {
+								responsive: true,
+								maintainAspectRatio: false,
+								legend: {
+									position : 'bottom',
+									labels : {
+										fontColor: 'rgb(154, 154, 154)',
+										fontSize: 11,
+										usePointStyle : true,
+										padding: 20
+									}
+								},
+								pieceLabel: {
+									render: 'percentage',
+									fontColor: 'white',
+									fontSize: 14,
+								},
+								tooltips: false,
+								layout: {
+									padding: {
+										left: 20,
+										right: 20,
+										top: 20,
+										bottom: 20
+									}
+								}
+							}
+						})
+
+
+						console.log("Success:", response);
+					},
+					error: function(xhr, status, error) {
+						// 오류 발생시 실행될 코드
+						console.error("Error:", status, error);
 					}
-				}
+				});
+			} else if (year === "년도를 선택하세요." && month !== "월을 선택하세요.") {
+				// 년도는 선택되지 않았지만 월은 선택된 경우
+				alert("년도를 선택하세요.");
 			}
 		});
+	});
+</script>
+
+
+<script>
+	$(document).ready(function() {
+		// 클릭 이벤트 리스너 추가
+		$('#YearBox_Pre, #MonthBox_Pre').change(function() {
+			var year = $('#YearBox_Pre').val();
+			var month = $('#MonthBox_Pre').val();
+
+			// 년도와 월이 모두 선택되었는지 확인
+			if (year !== "년도를 선택하세요." && month !== "월을 선택하세요.") {
+				// 선택된 값으로 AJAX 요청 보내기
+				$.ajax({
+					url: "http://localhost:8090/tradelist/preratio",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({ year: year, month: month }),
+					success: function(response) {
+
+						var PreRecivingData = response.PreRecivingData;
+
+						console.log(PreRecivingData);
+						var prequallZeroCount = PreRecivingData[0].prequallZeroCount;
+						var prequallOneCount = PreRecivingData[0].prequallOneCount;
+
+						var sellSumPceZero = PreRecivingData[0].sellSumPceZero;
+						var sellSumPceOne = PreRecivingData[0].sellSumPceOne;
+
+						var formatSellSumPceZero = sellSumPceZero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						var formatSellSumPceOne = sellSumPceOne.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+						var myDoughnutChart = new Chart(doughnutChart, {
+							type: 'doughnut',
+							data: {
+								datasets: [{
+									data: [sellSumPceOne, sellSumPceZero],
+									backgroundColor: ['#f3545d','#1d7af3']
+								}],
+
+								labels: [
+									'선입고 ' + prequallOneCount + '건',
+									'일반매출 ' + prequallZeroCount + '건'
+								]
+							},
+							options: {
+								responsive: true,
+								maintainAspectRatio: false,
+								legend : {
+									position: 'bottom'
+								},
+								layout: {
+									padding: {
+										left: 20,
+										right: 20,
+										top: 20,
+										bottom: 20
+									}
+								}
+							}
+						});
 
 
 
-		var myMultipleLineChart = new Chart(multipleLineChart, {
-			type: 'line',
-			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-				datasets: [{
-					label: "Python",
-					borderColor: "#1d7af3",
-					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#1d7af3",
-					pointBorderWidth: 2,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 1,
-					pointRadius: 4,
-					backgroundColor: 'transparent',
-					fill: true,
-					borderWidth: 2,
-					data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256]
-				},{
-					label: "PHP",
-					borderColor: "#59d05d",
-					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#59d05d",
-					pointBorderWidth: 2,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 1,
-					pointRadius: 4,
-					backgroundColor: 'transparent',
-					fill: true,
-					borderWidth: 2,
-					data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
-				}, {
-					label: "Ruby",
-					borderColor: "#f3545d",
-					pointBorderColor: "#FFF",
-					pointBackgroundColor: "#f3545d",
-					pointBorderWidth: 2,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 1,
-					pointRadius: 4,
-					backgroundColor: 'transparent',
-					fill: true,
-					borderWidth: 2,
-					data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
-				}]
-			},
-			options : {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					position: 'top',
-				},
-				tooltips: {
-					bodySpacing: 4,
-					mode:"nearest",
-					intersect: 0,
-					position:"nearest",
-					xPadding:10,
-					yPadding:10,
-					caretPadding:10
-				},
-				layout:{
-					padding:{left:15,right:15,top:15,bottom:15}
-				}
+						console.log("Success:", response);
+					},
+					error: function(xhr, status, error) {
+						// 오류 발생시 실행될 코드
+						console.error("Error:", status, error);
+					}
+				});
+			} else if (year === "년도를 선택하세요." && month !== "월을 선택하세요.") {
+				// 년도는 선택되지 않았지만 월은 선택된 경우
+				alert("년도를 선택하세요.");
 			}
 		});
-
-	</script>
-
+	});
+</script>
 
 
 </body>

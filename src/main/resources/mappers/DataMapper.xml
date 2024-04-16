@@ -180,4 +180,156 @@
             SELL_TABLE;
     </select>
 
+
+
+    <select id="getDataListSellByYear" resultType="com.ras.bandostockproject.dto.SellDataByYearDTO">
+        SELECT
+            SUM(CASE WHEN MONTH(sellDate) = 1 THEN sellPrice ELSE 0 END) AS SellSumByJan,
+            SUM(CASE WHEN MONTH(sellDate) = 2 THEN sellPrice ELSE 0 END) AS SellSumByFeb,
+            SUM(CASE WHEN MONTH(sellDate) = 3 THEN sellPrice ELSE 0 END) AS SellSumByMar,
+            SUM(CASE WHEN MONTH(sellDate) = 4 THEN sellPrice ELSE 0 END) AS SellSumByApr,
+            SUM(CASE WHEN MONTH(sellDate) = 5 THEN sellPrice ELSE 0 END) AS SellSumByMay,
+            SUM(CASE WHEN MONTH(sellDate) = 6 THEN sellPrice ELSE 0 END) AS SellSumByJun,
+            SUM(CASE WHEN MONTH(sellDate) = 7 THEN sellPrice ELSE 0 END) AS SellSumByJul,
+            SUM(CASE WHEN MONTH(sellDate) = 8 THEN sellPrice ELSE 0 END) AS SellSumByAug,
+            SUM(CASE WHEN MONTH(sellDate) = 9 THEN sellPrice ELSE 0 END) AS SellSumBySep,
+            SUM(CASE WHEN MONTH(sellDate) = 10 THEN sellPrice ELSE 0 END) AS SellSumByOct,
+            SUM(CASE WHEN MONTH(sellDate) = 11 THEN sellPrice ELSE 0 END) AS SellSumByNov,
+            SUM(CASE WHEN MONTH(sellDate) = 12 THEN sellPrice ELSE 0 END) AS SellSumByDec
+        FROM
+            SELL_TABLE
+        WHERE
+            YEAR(sellDate) = YEAR(CURRENT_DATE());
+    </select>
+
+
+    <select id="getDataListByPurByYear" resultType="com.ras.bandostockproject.dto.PurchaseDataByYearDTO">
+        SELECT
+            SUM(CASE WHEN MONTH(purchaseDate) = 1 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJan,
+            SUM(CASE WHEN MONTH(purchaseDate) = 2 THEN purchasePrice ELSE 0 END) AS PurchaseSumByFeb,
+            SUM(CASE WHEN MONTH(purchaseDate) = 3 THEN purchasePrice ELSE 0 END) AS PurchaseSumByMar,
+            SUM(CASE WHEN MONTH(purchaseDate) = 4 THEN purchasePrice ELSE 0 END) AS PurchaseSumByApr,
+            SUM(CASE WHEN MONTH(purchaseDate) = 5 THEN purchasePrice ELSE 0 END) AS PurchaseSumByMay,
+            SUM(CASE WHEN MONTH(purchaseDate) = 6 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJun,
+            SUM(CASE WHEN MONTH(purchaseDate) = 7 THEN purchasePrice ELSE 0 END) AS PurchaseSumByJul,
+            SUM(CASE WHEN MONTH(purchaseDate) = 8 THEN purchasePrice ELSE 0 END) AS PurchaseSumByAug,
+            SUM(CASE WHEN MONTH(purchaseDate) = 9 THEN purchasePrice ELSE 0 END) AS PurchaseSumBySep,
+            SUM(CASE WHEN MONTH(purchaseDate) = 10 THEN purchasePrice ELSE 0 END) AS PurchaseSumByOct,
+            SUM(CASE WHEN MONTH(purchaseDate) = 11 THEN purchasePrice ELSE 0 END) AS PurchaseSumByNov,
+            SUM(CASE WHEN MONTH(purchaseDate) = 12 THEN purchasePrice ELSE 0 END) AS PurchaseSumByDec
+        FROM PURCHASE_TABLE
+        WHERE YEAR(purchaseDate) = YEAR(CURRENT_DATE());
+    </select>
+
+
+    <select id="getPNLDataListByYear" resultType="com.ras.bandostockproject.dto.PNLdataDTO">
+        SELECT
+            SUM(CASE WHEN MONTH(sellDate) = 1 THEN ResultTotal ELSE 0 END) AS PNLJan,
+            SUM(CASE WHEN MONTH(sellDate) = 2 THEN ResultTotal ELSE 0 END) AS PNLFeb,
+            SUM(CASE WHEN MONTH(sellDate) = 3 THEN ResultTotal ELSE 0 END) AS PNLMar,
+            SUM(CASE WHEN MONTH(sellDate) = 4 THEN ResultTotal ELSE 0 END) AS PNLApr,
+            SUM(CASE WHEN MONTH(sellDate) = 5 THEN ResultTotal ELSE 0 END) AS PNLMay,
+            SUM(CASE WHEN MONTH(sellDate) = 6 THEN ResultTotal ELSE 0 END) AS PNLJun,
+            SUM(CASE WHEN MONTH(sellDate) = 7 THEN ResultTotal ELSE 0 END) AS PNLJul,
+            SUM(CASE WHEN MONTH(sellDate) = 8 THEN ResultTotal ELSE 0 END) AS PNLAug,
+            SUM(CASE WHEN MONTH(sellDate) = 9 THEN ResultTotal ELSE 0 END) AS PNLSep,
+            SUM(CASE WHEN MONTH(sellDate) = 10 THEN ResultTotal ELSE 0 END) AS PNLOct,
+            SUM(CASE WHEN MONTH(sellDate) = 11 THEN ResultTotal ELSE 0 END) AS PNLNov,
+            SUM(CASE WHEN MONTH(sellDate) = 12 THEN ResultTotal ELSE 0 END) AS PNLDec
+        FROM
+            (SELECT
+                 sellEaprice * sellQuantity AS SellTotal,
+                 purchaseEaprice * sellQuantity AS PurchaseTotal,
+                 (sellEaprice * sellQuantity - purchaseEaprice * sellQuantity) AS ResultTotal,
+                 sellDate
+             FROM
+                 SELL_TABLE
+                     JOIN
+                 PURCHASE_TABLE ON SELL_TABLE.purchasePDTNUM = PURCHASE_TABLE.purchasePDTNUM
+             WHERE
+                 YEAR(sellDate) = YEAR(CURRENT_DATE())
+            ) AS MonthlyResults;
+    </select>
+
+
+
+
+    <select id="getPurchaseDataPercentByMonth" resultType="com.ras.bandostockproject.dto.PercentDTO">
+        /*이 쿼리는 저번 달의 purchasePrice 합계가 0인 경우, 즉 분모가 0이 될 경우에는 오류를 발생시킬 수 있습니다. 이를 처리하기 위해 MySQL의 NULLIF 함수를 사용하여 분모가 0이 되는 경우를 처리할 수 있습니다*/
+        SELECT
+            ROUND(
+                        (SUM(CASE WHEN MONTH(purchaseDate) = MONTH(CURRENT_DATE()) THEN purchasePrice ELSE 0 END) /
+                         NULLIF(SUM(CASE WHEN MONTH(purchaseDate) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) THEN purchasePrice ELSE 0 END), 0) - 1) * 100,
+                        1
+            ) AS PurchasePercent
+        FROM
+            PURCHASE_TABLE
+        WHERE
+            YEAR(purchaseDate) = YEAR(CURRENT_DATE());
+    </select>
+
+    <select id="getSellDataPercentByMonth" resultType="com.ras.bandostockproject.dto.PercentDTO">
+        SELECT
+            ROUND(
+                        (SUM(CASE WHEN MONTH(sellDate) = MONTH(CURRENT_DATE()) THEN sellPrice ELSE 0 END) /
+                         NULLIF(SUM(CASE WHEN MONTH(sellDate) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) THEN sellPrice ELSE 0 END), 0) - 1) * 100,
+                        1
+            ) AS SellPercent
+        FROM
+            SELL_TABLE
+        WHERE
+            YEAR(sellDate) = YEAR(CURRENT_DATE());
+    </select>
+
+    <select id="getPrecivDataPercentByMonth" resultType="com.ras.bandostockproject.dto.PercentDTO">
+        SELECT
+            ROUND(
+                    ((SUM(CASE WHEN MONTH(sellDate) = MONTH(CURRENT_DATE()) AND preReceiving = 1 THEN sellPrice ELSE 0 END) /
+                      NULLIF(SUM(CASE WHEN MONTH(sellDate) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) AND preReceiving = 1 THEN sellPrice ELSE 0 END), 0) - 1) * 100),
+                    1
+            ) AS PrecivPercent
+        FROM
+            SELL_TABLE
+        WHERE
+            YEAR(sellDate) = YEAR(CURRENT_DATE());
+    </select>
+
+    <select id="getPrecivRankData" resultType="com.ras.bandostockproject.dto.PrecivRankDTO">
+        SELECT
+        Ranking,
+        sellCompany,
+        PreCountResult,
+        SumPriceResult
+        FROM (
+        SELECT
+        @rownum := @rownum + 1 AS Ranking,
+        sellCompany,
+        PreCountResult,
+        SumPriceResult
+        FROM (
+        SELECT
+        sc.sellCompany,
+        COUNT(*) AS PreCountResult,
+        SUM(st.sellPrice) AS SumPriceResult
+        FROM
+        (SELECT * FROM SELL_TABLE WHERE preReceiving = 1) st
+        JOIN
+        SELL_COMP sc ON st.sellId = sc.sellId
+        GROUP BY
+        sc.sellCompany
+        ORDER BY
+        PreCountResult DESC
+        LIMIT 3
+        ) ranked,
+        (SELECT @rownum := 0) r
+        UNION ALL
+        SELECT 1, NULL, NULL, NULL WHERE @rownum &lt; 1
+        UNION ALL
+        SELECT 2, NULL, NULL, NULL WHERE @rownum &lt; 2
+        UNION ALL
+        SELECT 3, NULL, NULL, NULL WHERE @rownum &lt; 3
+        ) result
+        ORDER BY Ranking;
+    </select>
+
 </mapper>

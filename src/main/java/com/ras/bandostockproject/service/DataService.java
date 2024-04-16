@@ -81,4 +81,49 @@ public class DataService {
         logger.info("월별 선입고 건수 조회");
         return dataMapper.getAllPrecivCountByMonth();
     }
+
+
+    // 올해 매입 내역카운트 검색
+    public List<SellDataByYearDTO> DataListSellByYear() {
+        logger.info("올해 매입 내역카운트 검색");
+        return dataMapper.getDataListSellByYear();
+    }
+
+    // 올해 매출 내역카운트 검색
+    public List<PurchaseDataByYearDTO> DataListByPurByYear() {
+        logger.info("올해 매출 내역카운트 검색");
+        return dataMapper.getDataListByPurByYear();
+    }
+
+    // 올해 PNL 내역카운트 검색
+    public List<PNLdataDTO> PNLDataListByYear() {
+        logger.info("올해 PNL 내역카운트 검색");
+        return dataMapper.getPNLDataListByYear();
+    }
+
+
+
+    //올해 전월대비 매입액 비율
+    public List<PercentDTO> PurchaseDataPercentByMonth() {
+        logger.info("올해 전월대비 매입액 비율");
+        return dataMapper.getPurchaseDataPercentByMonth();
+    }
+
+    //올해 전월대비 매출액 비율
+    public List<PercentDTO> SellDataPercentByMonth() {
+        logger.info("올해 전월대비 매출액 비율");
+        return dataMapper.getSellDataPercentByMonth();
+    }
+
+    //올해 전월대비 선입고액 비율
+    public List<PercentDTO> PrecivDataPercentByMonth() {
+        logger.info("올해 전월대비 선입고액 비율");
+        return dataMapper.getPrecivDataPercentByMonth();
+    }
+
+    //선입고 금액 랭킹
+    public List<PrecivRankDTO> PrecivRankData() {
+        logger.info("선입고 금액 랭킹");
+        return dataMapper.getPrecivRankData();
+    }
 }

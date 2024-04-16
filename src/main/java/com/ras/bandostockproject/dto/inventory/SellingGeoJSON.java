@@ -15,7 +15,7 @@ public class SellingGeoJSON {
     private String Rectangle;
     private int originId;
     private boolean isLoss;
-    private int meneyAdvantage;
+    private int moneyAdvantage;
     private int moneyLoss;
 
 }

@@ -65,4 +65,27 @@ public class GeometryUtils {
         }
     }
 
+    public static int calcSellingSpace(String coordinates){
+        String[] points = coordinates.split(", ");
+        double minX = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = Double.MIN_VALUE;
+
+        for (String point : points) {
+            point = point.trim().replaceAll("[()]", ""); // Remove parentheses and trim spaces
+            String[] xy = point.split(" ");
+            double x = Double.parseDouble(xy[0]);
+            double y = Double.parseDouble(xy[1]);
+
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+        double width = maxX - minX;
+        double height = maxY - minY;
+        return (int)(width * height);
+    }
+
 }

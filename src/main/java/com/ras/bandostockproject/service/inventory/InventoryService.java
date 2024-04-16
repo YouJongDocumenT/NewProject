@@ -38,4 +38,8 @@ public class InventoryService {
     }
 
     public List<Integer> selectInventoryIdList(){return inventoryMapper.selectInventoryIdList();}
+
+    public void updateMoneyAdvantage(SellingGeoJSON sellingGeoJSON){
+        inventoryMapper.updateMoneyAdvantage(sellingGeoJSON);
+    }
 }

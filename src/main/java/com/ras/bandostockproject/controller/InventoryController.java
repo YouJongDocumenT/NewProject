@@ -6,9 +6,12 @@ import com.ras.bandostockproject.dto.inventory.SellingGeoJSON;
 import com.ras.bandostockproject.service.inventory.GeometryUtils;
 import com.ras.bandostockproject.service.inventory.InventoryService;
 import com.ras.bandostockproject.service.inventory.RectangleCutter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.ras.bandostockproject.service.inventory.GeometryUtils.calcSellingSpace;
+
 @Controller
 public class InventoryController {
+
+    private static final Logger logger= LoggerFactory.getLogger(InventoryController.class);
 
     private final InventoryService inventoryService;
 
@@ -28,16 +35,18 @@ public class InventoryController {
 
 
     // post로 변경
+    @Transactional
     @PostMapping("/cutting")
-    public ResponseEntity<?> cutting(@RequestBody Map<String, Integer> payload){
+    public ResponseEntity<?> cutting(@RequestBody Map<String, Integer> payload){    // # payload : 프론트에서 받아온 가로 세로 길이
 
+        // # 원본 재고 id도 받아와야함
         int[] dimensions = GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry());   // 원본 재고 길이 받아와서 가로 세로 길이 배열에 저장
         System.out.println(inventoryService.selectGeometry());
         System.out.println(dimensions[0]+ " " + dimensions[1]);
 
         RectangleCutter cutter = new RectangleCutter(dimensions[0], dimensions[1]);     // 가로 세로 길이 만큼 재고 생성
-
-
+        
+        // 첫 자르기 작업 시 작업 처리( 별도 처리 하지않으면 cutOptimalRectangle 함수에서 에러남)
         if(!inventoryService.selectSellingGeometry().isEmpty())
         {
             GeometryUtils utils = new GeometryUtils();
@@ -57,18 +66,21 @@ public class InventoryController {
         cutter.printBoard();
         sellingGeoJSON.setOriginId(1);
         System.out.println("cutting : " + sellingGeoJSON.getRectangle());
+        int advantage = calcSellingSpace(sellingGeoJSON.getRectangle());
+        sellingGeoJSON.setMoneyAdvantage(advantage);
         inventoryService.insertSellingGeometry(sellingGeoJSON);
-
+        inventoryService.updateMoneyAdvantage(sellingGeoJSON);
         return ResponseEntity.ok().body("Cutting request processed successfully");
     }
 
+    // 원본 재고 생성
     @PostMapping("/createInventory")
     public ResponseEntity<?> createInventory(@RequestBody Map<String, Integer> payload){
 
         System.out.println(payload.get("item1"));
         System.out.println(payload.get("item2"));
         String inputPoint = "(0 0, " + payload.get("item1") + " 0, 0 " + payload.get("item2") + ", " + payload.get("item1")
-                            + " " + payload.get("item2") + "," + " 0 0)";
+                            + " " + payload.get("item2") + "," + " 0 0)";   // mybatis에 넘겨줄 좌표 String으로 변환
         // 재고 새로추가하는 버튼
         GeoJSON geoJSON = new GeoJSON();
         geoJSON.setRectangle(inputPoint);

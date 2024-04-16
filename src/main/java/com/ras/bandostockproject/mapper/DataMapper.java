@@ -12,4 +12,13 @@ public interface DataMapper {
     List<PurchaseDataByYearDTO> getYearDataListByPur(String yearData);
     List<PNLRatioDTO> getPnlData(String yearData, String monthData);
     List<PrereceivingRatioDTO> getPreRecivingData(String yearData, String monthData);
+
+
+    List<MainStockDataDTO> getAllPurchaseSumByMonth();
+    List<MainStockDataDTO> getAllSellSumByMonth();
+    List<MainStockDataDTO> getAllSellPNLByMonth();
+    List<MainStockDataDTO> getAllSellPrecByMonth();
+    List<MainStockCountByMonthDTO> getAllPurCountByMonth();
+    List<MainStockCountByMonthDTO> getAllSellCountByMonth();
+    List<MainStockCountByMonthDTO> getAllPrecivCountByMonth();
 }

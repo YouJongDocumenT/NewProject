@@ -85,4 +85,99 @@
           AND MONTH(sellDate) = #{monthData};
     </select>
 
+    <select id="getAllPurchaseSumByMonth" resultType="com.ras.bandostockproject.dto.MainStockDataDTO">
+        SELECT SUM(purchasePrice) AS SumPurchaseByMonth
+        FROM PURCHASE_TABLE
+        WHERE
+            YEAR(purchaseDate) = YEAR(CURRENT_DATE())
+          AND MONTH(purchaseDate) = MONTH(CURRENT_DATE());
+    </select>
+
+    <select id="getAllSellSumByMonth" resultType="com.ras.bandostockproject.dto.MainStockDataDTO">
+        SELECT SUM(sellPrice) AS SumSellByMonth
+        FROM SELL_TABLE
+        WHERE
+            YEAR(sellDate) = YEAR(CURRENT_DATE())
+          AND MONTH(sellDate) = MONTH(CURRENT_DATE());
+    </select>
+
+    <select id="getAllSellPNLByMonth" resultType="com.ras.bandostockproject.dto.MainStockDataDTO">
+        SELECT
+            SUM(ResultTotal) AS TotalResult
+        FROM
+            (SELECT
+                 (sellEaprice * sellQuantity) AS MutipleSellPrice,
+                 (purchaseEaprice * sellQuantity) AS MutiplePurchasePrice,
+                 ((sellEaprice * sellQuantity) - (purchaseEaprice * sellQuantity)) AS ResultTotal
+             FROM
+                 SELL_TABLE
+                     JOIN
+                 PURCHASE_TABLE ON SELL_TABLE.purchasePDTNUM = PURCHASE_TABLE.purchasePDTNUM
+             WHERE
+                 YEAR(sellDate) = YEAR(CURRENT_DATE())
+               AND MONTH(sellDate) = MONTH(CURRENT_DATE())) AS SubQuery;
+    </select>
+
+    <select id="getAllSellPrecByMonth" resultType="com.ras.bandostockproject.dto.MainStockDataDTO">
+        SELECT COUNT(*) AS TotalPreReciving
+        FROM SELL_TABLE
+        WHERE preReceiving = 1
+            AND MONTH(sellDate) = MONTH(CURRENT_DATE())
+          AND YEAR(sellDate) = YEAR(CURRENT_DATE());
+    </select>
+
+    <select id="getAllPurCountByMonth" resultType="com.ras.bandostockproject.dto.MainStockCountByMonthDTO">
+        SELECT
+            SUM(IF(MONTH(purchaseDate) = 1, 1, 0)) AS PurchaseTotalByJan,
+            SUM(IF(MONTH(purchaseDate) = 2, 1, 0)) AS PurchaseTotalByFeb,
+            SUM(IF(MONTH(purchaseDate) = 3, 1, 0)) AS PurchaseTotalByMar,
+            SUM(IF(MONTH(purchaseDate) = 4, 1, 0)) AS PurchaseTotalByApr,
+            SUM(IF(MONTH(purchaseDate) = 5, 1, 0)) AS PurchaseTotalByMay,
+            SUM(IF(MONTH(purchaseDate) = 6, 1, 0)) AS PurchaseTotalByJun,
+            SUM(IF(MONTH(purchaseDate) = 7, 1, 0)) AS PurchaseTotalByJul,
+            SUM(IF(MONTH(purchaseDate) = 8, 1, 0)) AS PurchaseTotalByAug,
+            SUM(IF(MONTH(purchaseDate) = 9, 1, 0)) AS PurchaseTotalBySep,
+            SUM(IF(MONTH(purchaseDate) = 10, 1, 0)) AS PurchaseTotalByOct,
+            SUM(IF(MONTH(purchaseDate) = 11, 1, 0)) AS PurchaseTotalByNov,
+            SUM(IF(MONTH(purchaseDate) = 12, 1, 0)) AS PurchaseTotalByDec
+        FROM
+            PURCHASE_TABLE;
+    </select>
+
+    <select id="getAllSellCountByMonth" resultType="com.ras.bandostockproject.dto.MainStockCountByMonthDTO">
+        SELECT
+            SUM(IF(MONTH(sellDate) = 1, 1, 0)) AS SellTotalByJan,
+            SUM(IF(MONTH(sellDate) = 2, 1, 0)) AS SellTotalByFeb,
+            SUM(IF(MONTH(sellDate) = 3, 1, 0)) AS SellTotalByMar,
+            SUM(IF(MONTH(sellDate) = 4, 1, 0)) AS SellTotalByApr,
+            SUM(IF(MONTH(sellDate) = 5, 1, 0)) AS SellTotalByMay,
+            SUM(IF(MONTH(sellDate) = 6, 1, 0)) AS SellTotalByJun,
+            SUM(IF(MONTH(sellDate) = 7, 1, 0)) AS SellTotalByJul,
+            SUM(IF(MONTH(sellDate) = 8, 1, 0)) AS SellTotalByAug,
+            SUM(IF(MONTH(sellDate) = 9, 1, 0)) AS SellTotalBySep,
+            SUM(IF(MONTH(sellDate) = 10, 1, 0)) AS SellTotalByOct,
+            SUM(IF(MONTH(sellDate) = 11, 1, 0)) AS SellTotalByNov,
+            SUM(IF(MONTH(sellDate) = 12, 1, 0)) AS SellTotalByDec
+        FROM
+            SELL_TABLE;
+    </select>
+
+    <select id="getAllPrecivCountByMonth" resultType="com.ras.bandostockproject.dto.MainStockCountByMonthDTO">
+        SELECT
+            SUM(IF(MONTH(sellDate) = 1 AND preReceiving = 1, 1, 0)) AS PreTotalByJan,
+            SUM(IF(MONTH(sellDate) = 2 AND preReceiving = 1, 1, 0)) AS PreTotalByFeb,
+            SUM(IF(MONTH(sellDate) = 3 AND preReceiving = 1, 1, 0)) AS PreTotalByMar,
+            SUM(IF(MONTH(sellDate) = 4 AND preReceiving = 1, 1, 0)) AS PreTotalByApr,
+            SUM(IF(MONTH(sellDate) = 5 AND preReceiving = 1, 1, 0)) AS PreTotalByMay,
+            SUM(IF(MONTH(sellDate) = 6 AND preReceiving = 1, 1, 0)) AS PreTotalByJun,
+            SUM(IF(MONTH(sellDate) = 7 AND preReceiving = 1, 1, 0)) AS PreTotalByJul,
+            SUM(IF(MONTH(sellDate) = 8 AND preReceiving = 1, 1, 0)) AS PreTotalByAug,
+            SUM(IF(MONTH(sellDate) = 9 AND preReceiving = 1, 1, 0)) AS PreTotalBySep,
+            SUM(IF(MONTH(sellDate) = 10 AND preReceiving = 1, 1, 0)) AS PreTotalByOct,
+            SUM(IF(MONTH(sellDate) = 11 AND preReceiving = 1, 1, 0)) AS PreTotalByNov,
+            SUM(IF(MONTH(sellDate) = 12 AND preReceiving = 1, 1, 0)) AS PreTotalByDec
+        FROM
+            SELL_TABLE;
+    </select>
+
 </mapper>

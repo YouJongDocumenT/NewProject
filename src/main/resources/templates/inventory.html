@@ -49,6 +49,35 @@
 <script>
 
 	document.addEventListener('DOMContentLoaded', (event) => {
+		document.getElementById('button5').addEventListener('click', scarp);
+	});
+
+	function scarp() {
+		// 여기에 입력 데이터를 설정하세요. 예시로 item1과 item2를 사용합니다.
+		const item1Size = document.getElementById('inventory-width').value;
+		const item2Size = document.getElementById('inventory-height').value;
+		//
+		// // POST 요청을 위한 데이터
+		const data = { item1: item1Size, item2: item2Size };
+
+		fetch('/loss', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			// JSON 형태로 데이터를 서버에 전송
+			body: JSON.stringify(data),
+		})
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success:', data);
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+	}
+
+	document.addEventListener('DOMContentLoaded', (event) => {
 		document.getElementById('inventory-button').addEventListener('click', createInventory);
 	});
 

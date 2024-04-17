@@ -21,4 +21,6 @@ public interface InventoryMapper {
 
     List<Integer> selectInventoryIdList();
     void updateMoneyAdvantage(SellingGeoJSON sellingGeoJSON);
+
+    void updateMoneyLoss(SellingGeoJSON sellingGeoJSON);
 }

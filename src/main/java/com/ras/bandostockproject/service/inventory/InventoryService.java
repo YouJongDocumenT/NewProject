@@ -42,4 +42,8 @@ public class InventoryService {
     public void updateMoneyAdvantage(SellingGeoJSON sellingGeoJSON){
         inventoryMapper.updateMoneyAdvantage(sellingGeoJSON);
     }
+
+    public void updateMoneyLoss(SellingGeoJSON sellingGeoJSON){
+        inventoryMapper.updateMoneyLoss(sellingGeoJSON);
+    }
 }

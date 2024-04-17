@@ -18,11 +18,6 @@
         VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 0, #{moneyAdvantage})
     </insert>
 
-    <!-- 폐기 처리 데이터 추가 -->
-    <insert id="insertLossGeometry">
-        INSERT INTO selling (Rectangle, originId, isLoss)
-        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 1)
-    </insert>
 
     <!-- 원본 재고 생성 -->
     <insert id="insertGeometry">
@@ -39,6 +34,19 @@
     <update id="updateMoneyAdvantage">
         UPDATE geometry
         SET profit = profit + #{moneyAdvantage}
+        WHERE idGeometry = #{originId}
+    </update>
+
+    <!-- 폐기 처리 데이터 추가 -->
+    <insert id="insertLossGeometry">
+        INSERT INTO selling (Rectangle, originId, isLoss, moneyLoss)
+        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 1, #{moneyLoss})
+    </insert>
+
+    <!-- 원본 재고에 손실 업데이트 -->
+    <update id="updateMoneyLoss">
+        UPDATE geometry
+        SET loss = loss + #{moneyLoss}
         WHERE idGeometry = #{originId}
     </update>
 

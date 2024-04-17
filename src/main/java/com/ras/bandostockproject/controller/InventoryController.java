@@ -112,15 +112,36 @@ public class InventoryController {
         return "inventory";
     }
 
-    @GetMapping("/loss")
-    public void lossInventory(){
+    @Transactional
+    @PostMapping("/loss")
+    public ResponseEntity<?> lossInventory(@RequestBody(required = false) Map<String, Integer> payload){ // # @RequestBody Map<String, Integer> payload 수정 필요 -> html에서 손봐야함
+
+        // # 원본 재고 id도 받아와야함
+        int[] dimensions = GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry());   // 원본 재고 길이 받아와서 가로 세로 길이 배열에 저장
+
+        RectangleCutter cutter = new RectangleCutter(dimensions[0], dimensions[1]);     // 가로 세로 길이 만큼 재고 생성
+
+        GeometryUtils utils = new GeometryUtils();
+        // 모든 좌표 불러와서 실재 재고 만큼 자르기
+
+        List<Polygon> polygons = new ArrayList<>();
+        polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());    // # db에서 좌표 받아서 list로 저장
+
+        for (Polygon polygon : polygons) {
+            cutter.cutRectangle(polygon);
+        }
 
         SellingGeoJSON sellingGeoJSON = new SellingGeoJSON();
-        sellingGeoJSON.setRectangle("(0 0, 20 0, 0 20, 20 20, 0 0)");
+        // # model을 받아와서 순서대로 x1, y1, x3, y3을 파라미터로 대입
+        sellingGeoJSON.setRectangle(cutter.cutLossArea(0,0,50,50));
+        sellingGeoJSON.setMoneyLoss(cutter.getDiscardedArea());
         sellingGeoJSON.setOriginId(1);
         System.out.println("cuttingLoss : " + sellingGeoJSON.getRectangle());
         inventoryService.insertLossGeometry(sellingGeoJSON);
+        inventoryService.updateMoneyLoss(sellingGeoJSON);
         // 실적 좌표들을 먼저 계산하고 loss를 계산후 loss난 면적만큼 손실에 += 대입연산 업데이트
-        
+        System.out.println(cutter.getDiscardedArea());
+
+        return ResponseEntity.ok().body("createInventory request processed successfully");
     }
 }

@@ -70,6 +70,8 @@ public class InventoryController {
         sellingGeoJSON.setMoneyAdvantage(advantage);
         inventoryService.insertSellingGeometry(sellingGeoJSON);
         inventoryService.updateMoneyAdvantage(sellingGeoJSON);
+        cutter.findBoundaryZeros();
+        System.out.println("사용가능공간:"+cutter.findBoundaryZeros());
         return ResponseEntity.ok().body("Cutting request processed successfully");
     }
 
@@ -79,8 +81,8 @@ public class InventoryController {
 
         System.out.println(payload.get("item1"));
         System.out.println(payload.get("item2"));
-        String inputPoint = "(0 0, " + payload.get("item1") + " 0, 0 " + payload.get("item2") + ", " + payload.get("item1")
-                            + " " + payload.get("item2") + "," + " 0 0)";   // mybatis에 넘겨줄 좌표 String으로 변환
+        String inputPoint = "(0 0, " + payload.get("item1") + " 0, "+ payload.get("item1")
+                + " " + payload.get("item2") +", 0 " + payload.get("item2") + "," + " 0 0)";   // mybatis에 넘겨줄 좌표 String으로 변환
         // 재고 새로추가하는 버튼
         GeoJSON geoJSON = new GeoJSON();
         geoJSON.setRectangle(inputPoint);
@@ -97,10 +99,14 @@ public class InventoryController {
         GeometryUtils utils = new GeometryUtils();
         // 모든 좌표 불러와서 실재 재고 만큼 자르기
 
+
+        if(inventoryService.selectGeometry() == null){
+            return "inventory";
+        }
         GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry());      // # 원본이 되는 재고 좌표 가져오는 서비스
         System.out.println(inventoryService.selectGeometry());
-        System.out.println("원본 재고 가로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[0]);
-        System.out.println("원본 재고 세로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[1]);
+//        System.out.println("원본 재고 가로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[0]);
+//        System.out.println("원본 재고 세로 길이:"+GeometryUtils.parseRectangleDimensions(inventoryService.selectGeometry())[1]);
 
         List<Polygon> polygons = new ArrayList<>();
         polygons = utils.parseCoordinates(inventoryService.selectSellingGeometry());    // # db에서 좌표 받아서 list로 저장, model로 넘겨줘야 할 list

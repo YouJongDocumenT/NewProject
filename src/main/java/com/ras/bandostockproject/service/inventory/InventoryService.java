@@ -29,9 +29,23 @@ public class InventoryService {
         inventoryMapper.insertLossGeometry(sellingGeoJSON);
     }
 
-
-
     public List<SellingGeoJSON> selectSellingGeometry(){
         return inventoryMapper.selectSellingGeometry();
     }
+
+    public GeoJSON selectGeometry(){
+        return inventoryMapper.selectGeometry();
+    }
+
+    public List<Integer> selectInventoryIdList(){return inventoryMapper.selectInventoryIdList();}
+
+    public void updateMoneyAdvantage(SellingGeoJSON sellingGeoJSON){
+        inventoryMapper.updateMoneyAdvantage(sellingGeoJSON);
+    }
+
+    public void updateMoneyLoss(SellingGeoJSON sellingGeoJSON){
+        inventoryMapper.updateMoneyLoss(sellingGeoJSON);
+    }
+
+    public void updateAvailableSpace(GeoJSON geoJSON){inventoryMapper.updateAvailableSpace(geoJSON);}
 }

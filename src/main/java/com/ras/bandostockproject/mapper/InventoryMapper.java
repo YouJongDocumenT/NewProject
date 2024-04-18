@@ -17,4 +17,12 @@ public interface InventoryMapper {
 
     List<SellingGeoJSON> selectSellingGeometry();
 
+    GeoJSON selectGeometry();
+
+    List<Integer> selectInventoryIdList();
+    void updateMoneyAdvantage(SellingGeoJSON sellingGeoJSON);
+
+    void updateMoneyLoss(SellingGeoJSON sellingGeoJSON);
+
+    void updateAvailableSpace(GeoJSON geoJSON);
 }

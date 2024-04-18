@@ -30,6 +30,10 @@
 	</style>
 </head>
 <body>
+<!-- 재고 생성 입력 칸 -->
+<input type="text" id="inventory-width" class="item-input" placeholder="1재고 크기">
+<input type="text" id="inventory-height" class="item-input" placeholder="2재고 크기">
+<div id="inventory-button" class="action-button">재고 생성</div>
 <!-- 재고칸 -->
 <div id="inventory">재고</div>
 
@@ -43,6 +47,65 @@
 <div id="button5" class="action-button" onclick="sendCoordinates()">5. 좌표 전송</div>
 
 <script>
+
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.getElementById('button5').addEventListener('click', scarp);
+	});
+
+	function scarp() {
+		// 여기에 입력 데이터를 설정하세요. 예시로 item1과 item2를 사용합니다.
+		const item1Size = document.getElementById('inventory-width').value;
+		const item2Size = document.getElementById('inventory-height').value;
+		//
+		// // POST 요청을 위한 데이터
+		const data = { item1: item1Size, item2: item2Size };
+
+		fetch('/loss', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			// JSON 형태로 데이터를 서버에 전송
+			body: JSON.stringify(data),
+		})
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success:', data);
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+	}
+
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.getElementById('inventory-button').addEventListener('click', createInventory);
+	});
+
+	function createInventory() {
+		// 여기에 입력 데이터를 설정하세요. 예시로 item1과 item2를 사용합니다.
+		const item1Size = document.getElementById('inventory-width').value;
+		const item2Size = document.getElementById('inventory-height').value;
+
+		// POST 요청을 위한 데이터
+		const data = { item1: item1Size, item2: item2Size };
+
+		fetch('/createInventory', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			// JSON 형태로 데이터를 서버에 전송
+			body: JSON.stringify(data),
+		})
+				.then(response => response.json())
+				.then(data => {
+					console.log('Success:', data);
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+	}
+
 
 	document.addEventListener('DOMContentLoaded', (event) => {
 		document.getElementById('button3').addEventListener('click', postData);
@@ -71,15 +134,6 @@
 				.catch((error) => {
 					console.error('Error:', error);
 				});
-	}
-
-	// 데이터 전송 함수
-	function sendData() {
-		var item1Size = document.getElementById('item1').value;
-		var item2Size = document.getElementById('item2').value;
-
-		// 여기에 POST 요청을 보내는 코드를 작성하세요.
-		console.log('데이터 전송', item1Size, item2Size);
 	}
 
 	// 폐기 모드 활성화 함수

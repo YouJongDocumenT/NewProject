@@ -26,4 +26,12 @@ public class Polygon {
         sb.append(")");
         return sb.toString();
     }
+
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
 }

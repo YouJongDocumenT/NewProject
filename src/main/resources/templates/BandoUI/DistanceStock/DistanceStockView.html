@@ -594,12 +594,12 @@
 					</div>
 
 					<div class="viewBuy-top">
-
+						<button id="postButton">재고POST</button>
 					</div>
 					<label class="label-1">● 재고 상세</label>
 					<div class="addBuy">
 						<!-- style="border:1px solid #000000; -->
-						<canvas id="myCanvas" class="recCanvas" width="1720" height="350" style=" border:1px solid #000000;"></canvas>
+						<canvas id="myCanvas" class="recCanvas" width="1720" height="350" style=""></canvas>
 					</div>
 
 
@@ -716,6 +716,7 @@
 	</script>
 
 	<script>
+		/*
 		window.onload = function() {
 			var canvas = document.getElementById('myCanvas');
 			if (canvas.getContext) {
@@ -753,10 +754,77 @@
 				ctx.stroke();
 			}
 		};
+		*/
 	</script>
 
 
+	<script>
+		$(document).ready(function() {
+			$('#postButton').click(function() {
+				// AJAX 요청 보내기
+				$.ajax({
+					url: "http://localhost:8090/distancestock/getStock",
+					type: "POST",
+					contentType: "application/json",
+					success: function(response) {
+						var rectangleData = JSON.parse(response.Rectangle.rectangle);
+						var coordinates = rectangleData.coordinates[0]; // 첫번째 폴리곤 좌표 배열
 
+						// 캔버스에 그릴 좌표 업데이트
+						drawPolygon(coordinates);
+					},
+					error: function(xhr, status, error) {
+						console.error("Error:", status, error);
+					}
+				});
+			});
+		});
+
+		function drawPolygon(coordinates) {
+			var canvas = document.getElementById('myCanvas');
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+
+				// 좌표 변환 및 중앙 정렬을 위한 계산
+				var minX = Math.min(...coordinates.map(coord => coord[0]));
+				var maxX = Math.max(...coordinates.map(coord => coord[0]));
+				var minY = Math.min(...coordinates.map(coord => coord[1]));
+				var maxY = Math.max(...coordinates.map(coord => coord[1]));
+
+				var scaleX = canvas.width / (maxX - minX);
+				var scaleY = canvas.height / (maxY - minY);
+				var scale = Math.min(scaleX, scaleY) * 0.8; // 전체 크기의 80%만 사용
+
+				var offsetX = (canvas.width - (maxX - minX) * scale) / 2 - minX * scale;
+				var offsetY = (canvas.height - (maxY - minY) * scale) / 2 - minY * scale;
+
+				// 그라데이션 설정
+				var gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+				gradient.addColorStop(0, 'ivory');
+				gradient.addColorStop(1, 'white');
+
+				// 도형 그리기 시작
+				ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 클리어
+				ctx.beginPath();
+				coordinates.forEach((coord, index) => {
+					var x = coord[0] * scale + offsetX;
+					var y = coord[1] * scale + offsetY;
+					if (index == 0) {
+						ctx.moveTo(x, y);
+					} else {
+						ctx.lineTo(x, y);
+					}
+				});
+				ctx.closePath();
+
+				// 도형 채우기 및 테두리 그리기
+				ctx.fillStyle = gradient;
+				ctx.fill();
+				ctx.strokeStyle = 'gray';
+				ctx.stroke();
+			}
+		}
+	</script>
 
 
 </body>

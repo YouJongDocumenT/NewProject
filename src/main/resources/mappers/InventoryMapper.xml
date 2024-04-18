@@ -12,22 +12,53 @@
         where originId = 1
     </select>
 
-    <!-- 파라미터 : 좌표, 부모id, 실적 or 손실 표시 -->
+    <!-- 판매 재고 데이터 추가 -->
     <insert id="insertSellingGeometry">
-        INSERT INTO selling (Rectangle, originId, isLoss)
-        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 0)
+        INSERT INTO selling (Rectangle, originId, isLoss, moneyAdvantage)
+        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 0, #{moneyAdvantage})
     </insert>
 
-    <insert id="insertLossGeometry">
-        INSERT INTO selling (Rectangle, originId, isLoss)
-        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 1)
-    </insert>
 
-    <!-- 파라미터 : 좌표 -->
+    <!-- 원본 재고 생성 -->
     <insert id="insertGeometry">
         INSERT INTO geometry (Rectangle)
         VALUES(ST_GeomFromText('POLYGON(${rectangle})'))
     </insert>
+
+    <!-- 원본 재고 id List 불러오기 -->
+    <select id="selectInventoryIdList" resultType="int">
+        select idGeometry from geometry
+    </select>
+
+    <!-- 원본 재고에 손익 업데이트 -->
+    <update id="updateMoneyAdvantage">
+        UPDATE geometry
+        SET profit = profit + #{moneyAdvantage}
+        WHERE idGeometry = #{originId}
+    </update>
+
+    <!-- 폐기 처리 데이터 추가 -->
+    <insert id="insertLossGeometry">
+        INSERT INTO selling (Rectangle, originId, isLoss, moneyLoss)
+        VALUES(ST_GeomFromText('POLYGON(${rectangle})'), #{originId}, 1, #{moneyLoss})
+    </insert>
+
+    <!-- 원본 재고에 손실 업데이트 -->
+    <update id="updateMoneyLoss">
+        UPDATE geometry
+        SET loss = loss + #{moneyLoss}
+        WHERE idGeometry = #{originId}
+    </update>
+
+    <update id="updateAvailableSpace">
+        UPDATE geometry
+        SET availableSpace = (ST_GeomFromText('POLYGON((${rectangle}))'))
+        WHERE idGeometry = 1
+        <!-- 아이디 매핑 해야함 -->
+    </update>
+
+
+
 
 
 </mapper>

@@ -1,9 +1,7 @@
 package com.ras.bandostockproject.controller;
 
-import com.ras.bandostockproject.dto.PcompDTO;
-import com.ras.bandostockproject.dto.PurchaseListDTO;
-import com.ras.bandostockproject.dto.SellListDTO;
-import com.ras.bandostockproject.dto.StockPriceDTO;
+import com.ras.bandostockproject.dto.*;
+import com.ras.bandostockproject.service.DataService;
 import com.ras.bandostockproject.service.PurchaseService;
 import com.ras.bandostockproject.service.SellService;
 import com.ras.bandostockproject.service.StockService;
@@ -28,12 +26,14 @@ public class DataListController {
     private final PurchaseService purchaseService;
     private final StockService stockService;
     private final SellService sellService;
+    private final DataService dataService;
 
     @Autowired
-    public DataListController(PurchaseService purchaseService, StockService stockService, SellService sellService) {
+    public DataListController(PurchaseService purchaseService, StockService stockService, SellService sellService, DataService dataService) {
         this.purchaseService = purchaseService;
         this.stockService = stockService;
         this.sellService = sellService;
+        this.dataService = dataService;
     }
 
     // 총 매입 화면단
@@ -95,6 +95,52 @@ public class DataListController {
         int SID = sellListDTO.getPersonId();
         Map<String, Object> data = new HashMap<>();
         data.put("PersonByIdList", sellService.PersonByIdList(SID));
+        return  data;
+    }
+
+    @GetMapping("tradelist")
+    public String Tradelist(){
+
+        return "BandoUI/tradelist";
+    }
+
+    @ResponseBody
+    @PostMapping("tradelist/year")
+    public Map handleYearData(@RequestBody SellDataByYearDTO sellDataByYearDTO) {
+        // 받아온 year값에 해당하는 구매정보를 가져옴
+        String yearData = sellDataByYearDTO.getYear();
+        Map<String, Object> data = new HashMap<>();
+        data.put("YearDataListBySell", dataService.YearDataListSell(yearData));
+        data.put("YearDataListByPur", dataService.YearDataListByPur(yearData));
+        return  data;
+    }
+    @ResponseBody
+    @PostMapping("tradelist/PNL")
+    public Map handlePNL(@RequestBody PNLRatioDTO pnlRatioDTO) {
+        // 받아온 year값에 해당하는 구매정보를 가져옴
+        String yearData = pnlRatioDTO.getYear();
+        String monthData = pnlRatioDTO.getMonth();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("PnlData", dataService.PnlData(yearData, monthData));
+        System.out.println(data);
+
+        return  data;
+    }
+
+    @ResponseBody
+    @PostMapping("tradelist/preratio")
+    public Map handlePreRatio(@RequestBody PrereceivingRatioDTO prereceivingRatioDTO) {
+        // 받아온 year값에 해당하는 구매정보를 가져옴
+        String yearData = prereceivingRatioDTO.getYear();
+        String monthData = prereceivingRatioDTO.getMonth();
+        System.out.println(yearData);
+        System.out.println(monthData);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("PreRecivingData", dataService.PreRecivingData(yearData, monthData));
+        System.out.println(data);
+
         return  data;
     }
 }

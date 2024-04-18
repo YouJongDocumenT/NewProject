@@ -30,7 +30,7 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="dark2">
 				
-				<a href="../index.html" class="logo">
+				<a href="../../index.html" class="logo">
 					<img src="../../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -338,7 +338,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="../index.html">
+										<a href="../../index.html">
 											<span class="sub-item">Dashboard 2</span>
 										</a>
 									</li>
@@ -828,12 +828,22 @@
 		var myBarChart = new Chart(barChart, {
 			type: 'bar',
 			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				labels: ["Jan"],
 				datasets : [{
-					label: "Sales",
+					label: "a",
 					backgroundColor: 'rgb(23, 125, 255)',
 					borderColor: 'rgb(23, 125, 255)',
-					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+					data: [3],
+				},{
+					label: "b",
+					backgroundColor: 'rgb(23, 125, 255)',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [6],
+				},{
+					label: "c",
+					backgroundColor: 'rgb(23, 125, 255)',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [8],
 				}],
 			},
 			options: {

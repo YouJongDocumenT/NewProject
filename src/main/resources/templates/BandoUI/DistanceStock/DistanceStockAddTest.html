@@ -46,7 +46,7 @@
 		.viewBuy-container {
 			border-radius: 5px; /* 테두리를 둥글게 만듦 */
 			overflow-x: auto;
-			max-height: 100%; /* 테이블 전체 높이 */       /*78%*/       /* 위치 수정 */
+			max-height: 78%; /* 테이블 전체 높이 */              /* 위치 수정 */
 			position: relative;
 		}
 
@@ -81,19 +81,6 @@
 			border-bottom: 3px solid black;
 			width: 100%;
 			margin-bottom: 5px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
-		}
-
-
-		/* 탭메뉴 설정 */
-		.tabMenu {
-			display: flex;
-		}
-		.tabPosition {
-			width: 15%;
-		}
-		.tabContentPosition {
-			width: 80%;
-			margin-left: 20px;
 		}
 	</style>
 
@@ -582,45 +569,9 @@
 						<input type="search" id="search-box">
 					</div>
 
-					<label class="label-1">● 고객사별 매입현황</label>
+					<label class="label-1">● Roll재고 현황</label>
 					<div class="viewBuy-container">
-									<div class="tabMenu">
-										<div class="tabPosition">
-											<div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-												<a class="nav-link" th:each="item : ${sellCompList}"
-												   th:id="${'v-pills-' + item.sellId + '-tab'}" data-toggle="pill"
-												   th:href="${'#v-pills-' + item.sellId}" role="tab"
-												   th:aria-controls="${'v-pills-' + item.sellId}"
-												   th:text="${item.sellCompany}" th:data-sell-id="${item.sellId}"></a>
-											</div>
-										</div>
 
-
-										<div class="tabContentPosition">
-											<div class="viewBuy-container">
-												<table class="viewBuy-table">
-													<thead>
-													<tr>
-														<th><input type="checkbox" id="checkbox" name="checkbox"></th>
-														<th>상태</th>
-														<th>구매일</th>
-														<th>품명 | 규격</th>
-														<th>고객사</th>
-														<th>기계명</th>
-														<th>담당자</th>
-														<th>수량</th>
-														<th>개당 가격</th>
-														<th>총 구매가격</th>
-													</tr>
-													</thead>
-													<tbody  id="tbody">
-													</tbody>
-													<tfoot id ="tfoot">
-													</tfoot>
-												</table>
-											</div>
-										</div>
-									</div>
 					</div>
 				</div>
 			</div>
@@ -719,100 +670,6 @@
 					rows[i].style.display = 'none';
 				}
 			}
-		});
-	});
-
-</script>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		var tabs = document.querySelectorAll('#v-pills-tab .nav-link');
-
-		tabs.forEach(function(tab) {
-			tab.addEventListener('click', function(e) {
-				e.preventDefault();
-				tabs.forEach(function(innerTab) {
-					innerTab.classList.remove('active');
-				});
-				tab.classList.add('active');
-			});
-		});
-	});
-</script>
-
-<script>
-	$(document).ready(function() {
-		// 탭 클릭 이벤트 리스너 추가
-		$(".nav-link").click(function() {
-			var sellId = $(this).data("sell-id"); // data-purchase-id 속성 값 가져오기
-			// AJAX 요청 보내기
-			$.ajax({
-				url: "http://localhost:8090/sellcomplist/sellid",
-				type: "POST",
-				contentType: "application/json",
-				data: JSON.stringify({ sellId: sellId }),
-				success: function(response) {
-					var sellList = response.SellListById;
-					$('#tbody').empty(); // 테이블 초기화
-
-					var totalSellCNT = 0; // 총 지출 초기화
-
-					$.each(sellList, function(i, item) {
-						// purchaseDate를 yy-mm-dd 형식으로 변환
-						var date = new Date(item.sellDate);
-						var formattedDate = date.getFullYear() + '-' +
-								('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-								('0' + date.getDate()).slice(-2);
-
-						var $td = $('<td>');
-
-						// preReceiving 값을 기준으로 텍스트와 배경색 설정
-						if (item.preReceiving == 0) {
-							$td.text('일반');
-						} else if (item.preReceiving == 1) {
-							$td.text('선입고').css('background-color', 'red');
-						} else if (item.preReceiving == 2) {
-							$td.text('완료').css('background-color', 'green');
-						} else {
-							$td.text('알수없음');
-						}
-
-						var $tr = $('<tr>').append(
-								$('<td>').html('<input type="checkbox" name="checkbox" class="row-check">'),
-								$td,
-								$('<td>').text(formattedDate),
-								$('<td>').text(item.product + " | " + item.standard),
-								$('<td>').text(item.sellCompany),
-								$('<td>').text(item.machineName),
-								$('<td>').text(item.person),
-								$('<td>').text(item.sellQuantity + 'EA'),
-								$('<td>').text(item.sellEaprice.toLocaleString() + '원'),
-								$('<td>').text(item.sellPrice.toLocaleString() + '원')
-						); // 각 열에 데이터 추가
-						$('#tbody').append($tr); // 테이블에 행 추가
-
-						// 총 지출 합계 업데이트
-						totalSellCNT += item.sellPrice;
-
-					});
-					// tfoot에 합계 행 추가
-					var $tfoot = $('#tfoot');
-					$tfoot.empty(); // tfoot 초기화
-
-					var $totalRow = $('<tr>').append(
-							$('<th colspan="8">').text('합계'),
-							$('<th>').text('총 지출(원)'),
-							$('<th>').text(totalSellCNT.toLocaleString() + '원')
-					);
-					$tfoot.append($totalRow);
-
-					console.log("Success:", response);
-				},
-				error: function(xhr, status, error) {
-					// 오류 발생시 실행될 코드
-					console.error("Error:", status, error);
-				}
-			});
 		});
 	});
 

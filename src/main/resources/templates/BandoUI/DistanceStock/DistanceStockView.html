@@ -22,9 +22,102 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/atlantis.min.css">
-	<link rel="stylesheet" href="../../user/custom.css">
+	<link rel="stylesheet" href="../../user/SellCustom.css">
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../../assets/css/demo.css">
+
+	<style>
+
+		/* margin은 요소의 외부 여백을, padding은 요소의 내부 여백을 지정합니다. */
+
+
+		.viewBuy {
+			width: 100%; /* div의 가로 길이 */
+			height: 100%; /* div의 세로 길이 */
+		}
+
+		.addBuy {
+			background-color: #202940; /* 배경색 */
+			width: 100%; /* div의 가로 길이 */
+			height: 400px; /* div의 세로 길이 */
+			border-radius: 5px; /* 테두리를 둥글게 만듦 */
+			margin-bottom: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.viewBuy-top {
+			width: 100%; /* div의 가로 길이 */
+			height: 90px; /* div의 세로 길이 */
+			background-color: #202940; /* 배경색 */
+			border-radius: 5px; /* 테두리를 둥글게 만듦 */
+			margin-bottom: 10px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+		}
+		.viewBuy-bottom {
+			width: 100%; /* div의 가로 길이 */
+			height: 370px; /* div의 세로 길이 */
+		}
+
+		.viewBuy-container {
+			border-radius: 5px; /* 테두리를 둥글게 만듦 */
+			overflow-x: auto;
+			max-height: 370px; /* 테이블 전체 높이 */              /* 위치 수정 */
+			position: relative;
+		}
+
+
+		.viewBuy-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.viewBuy-table thead th,
+		.viewBuy-table tfoot th {
+			text-align: center;
+		}
+		.viewBuy-table tbody td{
+			border: 1px solid #7d7b7b;
+			/*padding: 8px;*/
+			text-align: center;
+		}
+
+		.viewBuy-table thead th {
+			background-color: #202940;
+			position: sticky;
+			top: 0;
+		}
+
+		.viewBuy-table tfoot th {
+			background-color: #202940;
+			position: sticky;
+			bottom: 0;
+		}
+
+		.label-1 {
+			border-bottom: 3px solid black;
+			width: 100%;
+			margin-bottom: 5px; /* 첫 번째 div와 두 번째 div 사이의 간격 */
+		}
+
+
+		.pcom-table thead th,
+		.pcom-table tbody td {
+			border: 1px solid #7d7b7b; /* 테두리 스타일 및 색상 설정 */
+			padding: 3px; /* 셀 내부 여백 설정 */
+			text-align: center;
+		}
+
+		.add-table thead th,
+		.add-table tbody td {
+			border: 1px solid #7d7b7b; /* 테두리 스타일 및 색상 설정 */
+			padding: 3px; /* 셀 내부 여백 설정 */
+			text-align: center;
+		}
+
+
+	</style>
 </head>
 <body data-background-color="dark">
 	<div class="wrapper sidebar_minimize">
@@ -478,7 +571,7 @@
 			<div class="content">
 				<div class="page-inner">
 					<div class="page-header">
-						<h4 class="page-title">매입등록</h4>
+						<h4 class="page-title">Roll재고 현황</h4>
 						<ul class="breadcrumbs">
 							<li class="nav-home">
 								<a href="#">
@@ -489,161 +582,70 @@
 								<i class="flaticon-right-arrow"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">매입</a>
+								<a href="#">Data-list</a>
 							</li>
 							<li class="separator">
 								<i class="flaticon-right-arrow"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">매입등록</a>
+								<a href="#">Roll재고 현황</a>
 							</li>
 						</ul>
+					</div>
+
+					<div class="viewBuy-top">
+
+					</div>
+					<label class="label-1">● 재고 상세</label>
+					<div class="addBuy">
+						<!-- style="border:1px solid #000000; -->
+						<canvas id="myCanvas" class="recCanvas" width="1720" height="350" style=" border:1px solid #000000;"></canvas>
 					</div>
 
 
 					<div class="viewBuy">
 
-						<div class="viewBuy-top">
-
-						</div>
-
-						<label class="label-1">● 매입목록</label>
+						<label class="label-1">● 재고목록</label>
 						<div class="viewBuy-container">
 							<table class="viewBuy-table">
 								<thead>
 								<tr>
 									<th><input type="checkbox" id="checkbox" name="checkbox"></th>
-									<th>상태</th>
 									<th>구매일</th>
 									<th>품명 | 규격</th>
 									<th>구매처</th>
-									<th>수량</th>
-									<th>개당 가격</th>
-									<th>총 구매가격</th>
+									<th>길이</th>
+									<th>cm당 가격</th>
+									<th>재고 금액</th>
 								</tr>
 								</thead>
-								<tbody>
-								<tr th:each="item : ${purchaseList}">
+								<tbody  id="tbody">
+								<tr th:each="item : ${stockList}">
 									<td style="min-width: 50px">
 										<input type="checkbox" name="RowCheck" />
-										<input type="hidden" th:value="${item.purchasePDTNUM + '원'}">
+										<input type="hidden" th:value="${item.purchasePDTNUM}">
 									</td>
-									<td th:if="${item.credit == 0}">일반</td>
-									<td th:if="${item.credit == 1}" style="background-color: red;">외상</td>
-									<td th:if="${item.credit == 2}" style="background-color: green;">완료</td>
 									<td th:text="${#dates.format(item.purchaseDate, 'yyyy-MM-dd')}"></td>
 									<td th:text="${item.product + ' | ' + item.standard}"></td>
 									<td th:text="${item.purchaseCompany}"></td>
-									<td class="money" th:text="${item.purchaseQuantity + 'EA'}"></td>
+									<td class="money" th:text="${item.purchaseQuantity + ' x 900'}"></td>
 									<td class="money" th:text="${item.purchaseEaprice + '원'}"></td>
-									<td class="money" th:text="${item.purchasePrice + '원'}"></td>
+									<td class="money" th:text="${(item.purchaseQuantity * item.purchaseEaprice) + '원'}"></td>
 								</tr>
 								</tbody>
 								<tfoot>
 								<tr th:each="price : ${stockPrice}">
-									<th colspan="6">합계</th>
-									<th>총 지출(원)</th>
-									<th th:text="${price.allPruchaseCNT + '원'}"></th>
+									<th colspan="3">통계</th>
+									<th th:text="${'순수익(원): ' + price.revenue + '원'}"></th>
+									<th th:text="${'총 재고금액(원): ' + price.stockPrice + '원'}"></th>
+									<th th:text="${'총 구매액(원): ' + price.allPruchaseCNT + '원'}"></th>
+									<th th:text="${'총 매출(원): ' + price.allSellCNT + '원'}"></th>
 								</tr>
 								</tfoot>
 							</table>
-						</div>
-
-					</div>
-					<label class="label-1">● 매입추가</label>
-					<div class="addBuy">
-						<div class="pcom">
-							<form id="purchaseCompForm">
-							<table class="pcom-table">
-								<thead>
-									<th>매입처 등록</th>
-								</thead>
-								<tbody>
-									<tr>
-										<td>회사명</td>
-										<td>
-											<input type="text" id="purchaseCompany" name="purchaseCompany">
-										</td>
-									</tr>
-									<tr>
-										<td>주소</td>
-										<td>
-											<input type="text" id="address" name="address">
-										</td>
-									</tr>
-									<tr>
-										<td>번호</td>
-										<td>
-											<input type="text" id="compNumber" name="compNumber">
-										</td>
-									</tr>
-									<tr>
-										<td>이메일</td>
-										<td>
-											<input type="text" id="email" name="email">
-										</td>
-									</tr>
-								</tbody>
-								<tfoot>
-								<th colspan="2" style="text-align: center;  padding: 4px;"><button type="button" onclick="purchaseComp()">등록</button></th>
-								</tfoot>
-							</table>
-							</form>
-						</div>
-						<div class="add">
-							<form id="purchaseForm">
-							<table class="add-table">
-								<thead>
-								<th>매입추가</th>
-								<th><input type="checkbox" id="credit">외상</th>
-								</thead>
-								<tbody>
-								<tr>
-									<td>품명</td>
-									<td>
-										<input type="text" id="product" name="product">
-									</td>
-									<td>매입처</td>
-									<td>
-										<select id="purchaseDropdown">
-											<option value="">매입처를 선택하세요</option>
-											<option th:each="purchaseComp : ${purchaseComps}"
-													th:if="${purchaseComp != null}" th:value="${purchaseComp.purchaseId}"
-													th:text="${purchaseComp.purchaseCompany}"></option>
-										</select>
-										<input type="hidden" id="purchaseId" name="purchaseId" value="" readonly>
-									</td>
-								</tr>
-								<tr>
-									<td>규격</td>
-									<td>
-										<input type="text" id="standard" name="standard">
-									</td>
-									<td>단가(EA)</td>
-									<td>
-										<input type="text" id="purchaseEaprice" name="purchaseEaprice" required oninput="calculateTotalPrice()">
-									</td>
-								</tr>
-								<tr>
-									<td>수량</td>
-									<td>
-										<input type="text" id="purchaseQuantity" name="purchaseQuantity" required oninput="calculateTotalPrice()">
-									</td>
-								</tr>
-								<tr>
-									<td>총 구매가</td>
-									<td>
-										<input type="text" id="purchasePrice" name="purchasePrice" oninput="calculateTotalPrice()">
-									</td>
-								</tr>
-								</tbody>
-								<tfoot>
-								<th colspan="4" style="text-align: center;  padding: 4px;"><button type="button" onclick="purchaseAdd()">등록</button></th>
-								</tfoot>
-							</table>
-							</form>
 						</div>
 					</div>
+				</div>
 
 
 				</div>
@@ -694,78 +696,6 @@
 	<script src="../../assets/js/setting-demo2.js"></script>
 
 	<script>
-		function purchaseComp(){
-				const formData = $("#purchaseCompForm").serialize();
-				$.ajax({
-					url: "http://localhost:8090/purchaseadd/saveComp",
-					type: "POST",
-					data: formData,
-					success: function(response) {
-						alert(response);
-						location.href = location.href;
-					},
-					error: function(xhr, status, error) {
-						alert(xhr.responseText);
-					}
-				});
-		};
-	</script>
-	<script>
-		function purchaseAdd(){
-			let formData = $("#purchaseForm").serialize();
-			// machineId input 요소 가져오기
-			var creditInput = document.getElementById("credit");
-			// machineId input 요소의 체크 여부 확인
-			var isChecked = creditInput.checked;
-			// machineId input 요소의 체크 여부 확인
-			var credit = isChecked ? 1 : 0;
-			// Pre_receiving 값을 formData에 추가
-			formData += "&credit=" + credit;
-			$.ajax({
-				url: "http://localhost:8090/purchaseadd/savePurchase",
-				type: "POST",
-				data: formData,
-				success: function(response) {
-					alert(response);
-					location.href = location.href;
-				},
-				error: function(xhr, status, error) {
-					alert(xhr.responseText);
-				}
-			});
-		};
-	</script>
-	<script th:inline="javascript">
-		document.addEventListener('DOMContentLoaded', function () {
-			var purchaseDropdown = document.getElementById('purchaseDropdown');
-			var purchaseIdInput = document.getElementById('purchaseId');
-
-			purchaseDropdown.addEventListener('change', function () {
-				var selectedPurchase = purchaseDropdown.options[purchaseDropdown.selectedIndex];
-				var selectedPurchaseId = selectedPurchase.value;
-				var selectedPurchaseName = selectedPurchase.textContent;
-
-				purchaseIdInput.value = selectedPurchaseId; // 선택된 machine_id 값을 input 요소에 설정
-				// 여기서 선택된 machine_name을 필요에 따라 사용할 수 있습니다.
-			});
-		});
-
-
-	</script>
-	<script>
-		function calculateTotalPrice() {
-			const purchaseEAprice = parseFloat(document.getElementById('purchaseEaprice').value);
-			const purchaseQuantity = parseFloat(document.getElementById('purchaseQuantity').value);
-
-			const totalPrice = Math.round(purchaseEAprice * purchaseQuantity); // 결과를 정수로 변환
-
-			const purchasePriceField = document.getElementById('purchasePrice');
-			if (!isNaN(totalPrice)) {
-				purchasePriceField.value = totalPrice.toString(); // 정수로 출력
-			} else {
-				purchasePriceField.value = ''; // 잘못된 입력이면 빈 값으로 설정
-			}
-		}
 
 		// 금액 단위 표시 (정규식 사용)
 		$(document).ready(function() {
@@ -775,7 +705,59 @@
 				$(this).text(reviseMoney);
 			});
 		});
+
+		// 한번 or 두번 자른후 도형 (좌표 6개)
+		var one_points = [{x: 50, y: 50}, {x: 150, y: 50}, {x: 150, y: 100}, {x: 100, y: 100}, {x: 100, y: 150}, {x: 50, y: 150}];
+
+		// 두번 자른후 도형 (좌표 8개)
+		var two_points = [{x: 50, y: 50}, {x: 150, y: 50}, {x: 150, y: 100}, {x: 100, y: 100}, {x: 50, y: 50}, {x: 150, y: 50}, {x: 150, y: 100}, {x: 100, y: 100}];
+
+
 	</script>
+
+	<script>
+		window.onload = function() {
+			var canvas = document.getElementById('myCanvas');
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+
+				// 캔버스의 가운데 위치 계산
+				var canvasWidth = canvas.width;
+				var canvasHeight = canvas.height;
+
+				var centerX = canvasWidth / 2;
+				var centerY = canvasHeight / 2;
+
+				// 기본 직사각형 (좌표 4개)
+				var normal_points = [{x: centerX - 500, y: centerY - 100}, {x: centerX + 500, y: centerY - 100}, {x: centerX + 500, y: centerY + 100}, {x: centerX - 500, y: centerY + 100}];
+
+				// 그라데이션 설정
+				var gradient = ctx.createLinearGradient(normal_points[0].x, normal_points[0].y, normal_points[2].x, normal_points[2].y);
+				gradient.addColorStop(0, 'ivory'); // 그라데이션 시작 색상
+				gradient.addColorStop(1, 'white'); // 그라데이션 종료 색상
+
+				// 도형 그리기 시작
+				ctx.beginPath();
+				ctx.moveTo(normal_points[0].x, normal_points[0].y);
+				normal_points.forEach(function(point) {
+					ctx.lineTo(point.x, point.y);
+				});
+				ctx.closePath();
+
+				// 그라데이션으로 도형 내부 채우기
+				ctx.fillStyle = gradient;
+				ctx.fill();
+
+				// 테두리 그리기
+				ctx.strokeStyle = 'gray'; // 테두리 색상
+				ctx.stroke();
+			}
+		};
+	</script>
+
+
+
+
 
 </body>
 </html>

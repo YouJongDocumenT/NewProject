@@ -2,6 +2,7 @@ package com.ras.bandostockproject.service.inventory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ras.bandostockproject.dto.inventory.GeoJSON;
 import com.ras.bandostockproject.dto.inventory.Polygon;
 import com.ras.bandostockproject.dto.inventory.SellingGeoJSON;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class GeometryUtils {
 
-    public static List<Polygon> parseCoordinates(List<SellingGeoJSON> geometries) {
+    public List<Polygon> parseCoordinates(List<SellingGeoJSON> geometries) {
         List<Polygon> polygons = new ArrayList<>(); // This will store the polygons with their points
 
         ObjectMapper mapper = new ObjectMapper();
@@ -33,4 +34,58 @@ public class GeometryUtils {
         }
         return polygons;
     }
+
+    public static int[] parseRectangleDimensions(GeoJSON geometry) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode root = mapper.readTree(geometry.getRectangle());
+            JsonNode coordinates = root.get("coordinates").get(0);
+
+            double minX = Double.MAX_VALUE;
+            double maxX = Double.MIN_VALUE;
+            double minY = Double.MAX_VALUE;
+            double maxY = Double.MIN_VALUE;
+
+            for (JsonNode coord : coordinates) {
+                double x = coord.get(0).asDouble();
+                double y = coord.get(1).asDouble();
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+
+            int width = (int) (maxX - minX);
+            int height = (int) (maxY - minY);
+
+            return new int[]{width, height};
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new int[]{0, 0};  // Return default value in case of an error
+        }
+    }
+
+    public static int calcSellingSpace(String coordinates){
+        String[] points = coordinates.split(", ");
+        double minX = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = Double.MIN_VALUE;
+
+        for (String point : points) {
+            point = point.trim().replaceAll("[()]", ""); // Remove parentheses and trim spaces
+            String[] xy = point.split(" ");
+            double x = Double.parseDouble(xy[0]);
+            double y = Double.parseDouble(xy[1]);
+
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+        double width = maxX - minX;
+        double height = maxY - minY;
+        return (int)(width * height);
+    }
+
 }

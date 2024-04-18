@@ -93,47 +93,4 @@ public class MainController {
 
         return "BandoUI/mainStock";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping("datalist")
-    public String DataList(){
-
-        return "BandoUI/DataList";
-    }
-    @GetMapping("purchaselist")
-    public String Purchaselist(){
-
-        return "BandoUI/purchaselist";
-    }
-    @GetMapping("selllist")
-    public String Selllist(){
-
-        return "BandoUI/selllist";
-    }
-    @GetMapping("tradelist")
-    public String Tradelist(){
-
-        return "BandoUI/tradelist";
-    }
-
-
-    @GetMapping("test")
-    public String TemplateTest(){
-
-        return "BandoUI/TemplateUI/charts";
-    }
-
 }

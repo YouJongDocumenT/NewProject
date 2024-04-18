@@ -98,6 +98,12 @@ public class DataListController {
         return  data;
     }
 
+    @GetMapping("tradelist")
+    public String Tradelist(){
+
+        return "BandoUI/tradelist";
+    }
+
     @ResponseBody
     @PostMapping("tradelist/year")
     public Map handleYearData(@RequestBody SellDataByYearDTO sellDataByYearDTO) {

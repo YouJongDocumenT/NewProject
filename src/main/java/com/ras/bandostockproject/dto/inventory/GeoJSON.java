@@ -15,5 +15,6 @@ public class GeoJSON {
     private String Rectangle;
     private int profit;
     private int loss;
+    private String availableSpace;
 
 }

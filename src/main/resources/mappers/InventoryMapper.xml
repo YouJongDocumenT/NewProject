@@ -50,6 +50,13 @@
         WHERE idGeometry = #{originId}
     </update>
 
+    <update id="insertGeometry">
+        UPDATE INTO geometry (availableSpace)
+        VALUES(ST_GeomFromText('POLYGON(${rectangle})'))
+    </update>
+
+
+
 
 
 </mapper>
